@@ -292,6 +292,18 @@
             "webpack.config.js"
         ]
     },
+    "symfony/workflow": {
+        "version": "7.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "3.3",
+            "ref": "3b2f8ca32a07fcb00f899649053943fa3d8bbfb6"
+        },
+        "files": [
+            "config/packages/workflow.yaml"
+        ]
+    },
     "symfonycasts/sass-bundle": {
         "version": "v0.7.0"
     },

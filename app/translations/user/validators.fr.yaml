@@ -1,0 +1,16 @@
+user.email.assert.email: L'email est invalide
+user.email.assert.not_blank: L'email est requis
+user.email.assert.unique: Cet email est déjà utilisé
+user.email.assert.length: L'email ne doit pas excéder {{ limit }} caractères
+
+user.username.assert.not_blank: Le nom d'utilisateur est requis
+user.username.assert.unique: Ce nom d'utilisateur est déjà utilisé
+user.username.assert.length: Le nom d'utilisateur ne doit pas excéder {{ limit }} caractères
+
+user.firstname.assert.not_blank: Le prénom est requis
+user.firstname.assert.length: Le prénom ne doit pas excéder {{ limit }} caractères
+
+user.lastname.assert.not_blank: Le nom est requis
+user.lastname.assert.length: Le nom ne doit pas excéder {{ limit }} caractères
+
+user.password.assert.not_blank: Le nom est requis

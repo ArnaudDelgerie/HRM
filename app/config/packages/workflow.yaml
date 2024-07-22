@@ -1,0 +1,27 @@
+framework:
+    workflows:
+        user:
+            type: 'state_machine'
+            audit_trail:
+                enabled: true
+            marking_store:
+                type: 'method'
+                property: 'state'
+            supports:
+                App\Entity\User
+            initial_marking: created
+            places:
+                - created
+                - invited
+                - enabled
+                - disabled
+            transitions:
+                invit:
+                    from: created
+                    to: invited
+                enable:
+                    from: invited
+                    to: enabled
+                disable:
+                    from: enabled
+                    to: disabled

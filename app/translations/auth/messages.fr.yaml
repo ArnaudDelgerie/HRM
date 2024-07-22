@@ -1,0 +1,5 @@
+auth.login.browser.title: Connexion
+auth.login.page.title: Connexion
+auth.login.form.email: Adresse email
+auth.login.form.password: Mot de passe
+auth.login.form.submit: Valider

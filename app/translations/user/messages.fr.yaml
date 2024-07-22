@@ -1,0 +1,7 @@
+user.state.created: créé
+user.state.invited: invité
+user.state.enabled: activé
+user.state.disabled: desactivé
+
+user.role.user: Utilisateur standard
+user.role.admin: Administrateur
