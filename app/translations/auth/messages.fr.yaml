@@ -3,3 +3,5 @@ auth.login.page.title: Connexion
 auth.login.form.email: Adresse email
 auth.login.form.password: Mot de passe
 auth.login.form.submit: Valider
+auth.user_checker_not_enabled: Votre compte n'est pas activé
+"Invalid credentials.": Identifiants invalides

@@ -12,6 +12,7 @@ use App\Repository\UserRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\HasLifecycleCallbacks]
@@ -20,7 +21,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 #[UniqueEntity(fields: ['username'], message: 'user.username.assert.unique')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_USERNAME', fields: ['username'])]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, EquatableInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -125,6 +126,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     public function eraseCredentials(): void {}
+
+    public function isEqualTo(UserInterface $user): bool
+    {
+        /** @var User $user */
+        return $this->email === $user->getEmail()
+            && $this->getState() === $user->getState()
+            && $this->getUsername() === $user->getUsername()
+            && $this->getPassword() === $user->getPassword();
+    }
 
     public function getUsername(): ?string
     {

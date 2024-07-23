@@ -12,6 +12,8 @@ security:
             security: false
         main:
             lazy: true
+            pattern: ^/
+            user_checker: App\Security\UserChecker
             provider: app_user_provider
 
             form_login:
