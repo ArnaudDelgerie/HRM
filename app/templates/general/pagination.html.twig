@@ -1,0 +1,15 @@
+{% if paginationData|length > 0 %}
+<nav class="d-flex justify-content-center" aria-label="pagination">
+    <ul class="pagination pagination">
+        {% for data in paginationData %}
+            {% if data['current'] %}
+            <li class="page-item active" aria-current="page">
+                <span class="page-link">{{ data['page'] }}</span>
+            </li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="{{ path(data['routeName'], data['queryParameters']) }}">{{ data['page'] }}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</nav>
+{% endif %}

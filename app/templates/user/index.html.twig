@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'user.index.browser.title'|trans }}{% endblock %}
+
+{% block body %}
+<div class="container-sm mt-5">
+    <div class="d-flex justify-content-between">
+        <h1 class="fs-3 text">{{ 'user.index.page.title'|trans }}</h1>
+        {% if is_granted('ROLE_USER_MANAGER') %}
+        <a class="btn btn-primary btn-sm mb-2" href="#">
+            <i class="fa-solid fa-user-plus me-1"></i>
+            {{ 'user.index.table.actions.create'|trans }}
+        </a>
+        {% endif %}
+    </div>
+    <div>
+        <div class="table-responsive">
+            <table class="table table-hover border-secondary">
+                <thead>
+                    <tr>
+                        <th scope="col">{{ 'user.index.table.username'|trans }}</th>
+                        <th class="d-none d-md-table-cell" scope="col">{{ 'user.index.table.email'|trans }}</th>
+                        <th class="d-none d-xl-table-cell" scope="col">{{ 'user.index.table.firstname'|trans }}</th>
+                        <th class="d-none d-xl-table-cell" scope="col">{{ 'user.index.table.lastname'|trans }}</th>
+                        <th scope="col">{{ 'user.index.table.state'|trans }}</th>
+                        <th scope="col">{{ 'user.index.table.actions'|trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.username }}</td>
+                        <td class="d-none d-md-table-cell">{{ user.email }}</td>
+                        <td class="d-none d-xl-table-cell">{{ user.firstname }}</td>
+                        <td class="d-none d-xl-table-cell">{{ user.lastname }}</td>
+                        <td>{{ user.enumState|trans }}</td>
+                        <td>
+                            <div class="d-flex justify-content-start">
+                                <a class="btn btn-secondary btn-sm me-1">
+                                    <i class="fa-regular fa-eye"></i>
+                                    {{ 'user.index.table.actions.show'|trans }}
+                                </a>
+                                {% if workflow_can(user, 'invite') %}
+                                <form action="" method="post">
+                                    <button class="btn btn-info btn-sm me-1">
+                                        <i class="fa-regular fa-paper-plane me-1"></i>
+                                        {{ 'user.index.table.actions.invite'|trans }}
+                                    </button>
+                                </form>
+                                {% endif %}
+                                {% if workflow_can(user, 'disable') %}
+                                <form action="" method="post">
+                                    <button class="btn btn-danger btn-sm">
+                                        <i class="fa-solid fa-ban me-1"></i>
+                                        {{ 'user.index.table.actions.disable'|trans }}
+                                    </button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {{ include('general/pagination.html.twig', {'paginationData': paginationData}) }}
+    </div>
+</div>
+{% endblock %}

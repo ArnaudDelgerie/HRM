@@ -3,5 +3,19 @@ user.state.invited: invité
 user.state.enabled: activé
 user.state.disabled: desactivé
 
-user.role.user: Utilisateur standard
+user.role.user: Employé
+user.role.user_manager: Manager employé
 user.role.admin: Administrateur
+
+user.index.browser.title: Liste des employés
+user.index.page.title: Liste des employés
+user.index.table.username: Nom d'utilisateur
+user.index.table.email: Email
+user.index.table.firstname: Prénom
+user.index.table.lastname: Nom
+user.index.table.state: État
+user.index.table.actions: Actions
+user.index.table.actions.show: Voir
+user.index.table.actions.create: Ajouter
+user.index.table.actions.invite: Inviter
+user.index.table.actions.disable: Désactiver

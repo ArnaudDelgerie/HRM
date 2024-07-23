@@ -11,6 +11,8 @@ enum UserRoleEnum: string implements TranslatableInterface
     case User = 'ROLE_USER';
 
     case Admin = 'ROLE_ADMIN';
+    
+    case UserManager = 'ROLE_USER_MANAGER';
 
     public function trans(TranslatorInterface $translator, string $locale = null): string
     {

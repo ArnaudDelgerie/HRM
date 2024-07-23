@@ -91,6 +91,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return (string) $this->email;
     }
 
+    public function isAdmin(): bool
+    {
+        return in_array(UserRoleEnum::Admin->value, $this->roles, true);
+    }
+
     public function getRoles(): array
     {
         $roles = $this->roles;
