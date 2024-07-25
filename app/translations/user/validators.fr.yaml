@@ -13,4 +13,6 @@ user.firstname.assert.length: Le prénom ne doit pas excéder {{ limit }} caract
 user.lastname.assert.not_blank: Le nom est requis
 user.lastname.assert.length: Le nom ne doit pas excéder {{ limit }} caractères
 
-user.password.assert.not_blank: Le nom est requis
+user.password.assert.not_blank: Le mot de passe est requis
+user.password.assert.length: Le mot de passe doit faire au moins {{ limit }} caractères
+user.form.plain_password_repeat_invalid: Les deux mots de passe doivent être identiques

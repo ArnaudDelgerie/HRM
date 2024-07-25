@@ -2,6 +2,10 @@ auth.login.browser.title: Connexion
 auth.login.page.title: Connexion
 auth.login.form.email: Adresse email
 auth.login.form.password: Mot de passe
-auth.login.form.submit: Valider
-auth.user_checker_not_enabled: Votre compte n'est pas activé
-"Invalid credentials.": Identifiants invalides
+auth.login.form.submit: Confirmer 
+auth.user_checker_not_enabled: Votre compte n'est pas activé, contactez votre employeur
+auth.registration_completion.form.submit: Confirmer
+
+auth.registration_completion.browser.title: Finalisation de l'inscription
+auth.registration_completion.page.title: Finalisation de l'inscription
+auth.registration_completion.message.success: Inscription finalisée, vous pouvez dès à présent vous connecter

@@ -21,7 +21,29 @@
     {% block navbar %}
     {{ include('general/navbar.html.twig') }}
     {% endblock %}
-    {% block body %}{% endblock %}
+    <main>
+        {% block body %}{% endblock %}
+        {% set successMessages = app.flashes('success') %}
+        {% set errorMessages = app.flashes('error') %}
+        {% if successMessages|length > 0 or errorMessages|length > 0 %}
+            <div class="fixed-bottom">
+                <div class="row col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3 col-xs-12">
+                    {% for message in successMessages  %}
+                    <div class="alert alert-success d-flex justify-content-between fade show my-2" style="cursor: pointer;" data-bs-dismiss="alert" role="alert">
+                        {{ message|trans }}
+                        <button type="button" class="btn-close" disabled aria-label="Close"></button>
+                    </div>
+                    {% endfor %}
+                    {% for message in errorMessages  %}
+                    <div class="alert alert-danger d-flex justify-content-between fade show my-2" style="cursor: pointer;" data-bs-dismiss="alert" role="alert">
+                        {{ message|trans }}
+                        <button type="button" class="btn-close" disabled aria-label="Close"></button>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </main>
 </body>
 
 </html>

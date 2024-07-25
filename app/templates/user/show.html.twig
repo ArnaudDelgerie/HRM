@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'user.show.browser.title'|trans }}{% endblock %}
+
+{% block body %}
+<div class="container-sm mt-5">
+    <h1 class="fs-3 text">{{ 'user.show.page.title'|trans }}</h1>
+    <div class="card">
+        <div class="card-header fs-5 text-bold">
+            {{ user.username }}
+        </div>
+        <div class="card-body">
+            <p>{{ user.firstname }} {{ user.lastname }}</p>
+            <p>{{ user.email }}</p>
+            <p>
+                {% for role in user.enumRoles %}
+                <span class="badge bg-secondary me-2">{{ role|trans }}</span>
+                {% endfor %}
+            </p>
+        </div>
+        <div class="card-footer d-flex justify-content-end">
+            <a class="btn btn-secondary btn-sm" href="{{ path('app_user_update', {'user': user.id}) }}">
+                <i class="fa-solid fa-user-pen"></i>
+                <span class="d-none d-sm-inline ms-1">{{ 'user.show.actions.update'|trans }}</span>
+            </a>
+            {% if is_granted('OWNER', user) %}
+            <a class="btn btn-secondary btn-sm ms-2" href="{{ path('app_user_update_password', {'user': user.id}) }}">
+                <i class="fa-solid fa-key"></i>
+                <span class="d-none d-sm-inline ms-1">{{ 'user.show.actions.update_password'|trans }}</span>
+            </a>
+            {% endif %}
+            {% if workflow_can(user, 'invite') %}
+            <form action="{{ path('app_user_invite', {'user': user.id}) }}" method="post">
+                <button class="btn btn-info btn-sm ms-2">
+                    <i class="fa-regular fa-paper-plane"></i>
+                    <span class="d-none d-sm-inline ms-1">
+                        {{ 'user.show.actions.invite'|trans }}
+                    </span>
+                </button>
+            </form>
+            {% endif %}
+            {% if workflow_can(user, 'disable') %}
+            <form
+                method="post"
+                action="{{ path('app_user_disable', {'user': user.id}) }}"
+                data-turbo-confirm="{{ 'user.show.actions.disable.confirm'|trans }}"
+            >
+                <button class="btn btn-danger btn-sm ms-2">
+                    <i class="fa-solid fa-ban"></i>
+                    <span class="d-none d-sm-inline ms-01">
+                        {{ 'user.show.actions.disable'|trans }}
+                    </span>
+                </button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+    <div class="mt-5">
+        <ul class="nav justify-content-center border border-secondary fs-5">
+            <li class="nav-item{% if app.request.get('tab', 'meeting') == 'meeting' %} bg-dark{% endif %}">
+                <a href="{{ path('app_user_show', {'user': user.id, 'tab': 'meeting'}) }}" {% if
+                    app.request.get('tab', 'meeting' )=='meeting' %}aria-current="page" {% endif %}
+                    class="nav-link {% if app.request.get('tab', 'meeting') == 'meeting' %} active{% endif %}">
+                    {{ 'user.show.link.meeting'|trans }}
+                </a>
+            </li>
+            <li class="nav-item{% if app.request.get('tab', 'meeting') == 'leave-period' %} bg-dark{% endif %}">
+                <a href="{{ path('app_user_show', {'user': user.id, 'tab': 'leave-period'}) }}" {% if
+                    app.request.query.get('tab', 'meeting' )=='leave-period' %}aria-current="page" {% endif %}
+                    class="nav-link {% if app.request.get('tab', 'meeting') == 'leave-period' %} active{% endif %}">
+                    {{ 'user.show.link.leave_period'|trans }}
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

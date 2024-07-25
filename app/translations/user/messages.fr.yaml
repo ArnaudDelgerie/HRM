@@ -3,19 +3,75 @@ user.state.invited: invité
 user.state.enabled: activé
 user.state.disabled: desactivé
 
-user.role.user: Employé
-user.role.user_manager: Manager employé
-user.role.admin: Administrateur
+user.role.user: Standard 
+user.role.admin: Intégrales
+user.role.user_manager: Gestion d'employés
+user.role.customer_manager: Gestion de clients
+user.role.project_manager: Gestion de projets
+user.role.meeting_manager: Gestion de réunions
+user.role.leave_period_manager: Gestion de congés
+
+user.show.browser.title: Détail de l'employé
+user.show.page.title: Détail de l'employé
+user.show.actions.invite: Inviter
+user.show.actions.disable: Désactiver
+user.show.actions.disable.confirm: Êtes-vous sûr de vouloir désactiver cet employé ?
+user.show.actions.update: Modifier
+user.show.actions.update_password: Modifier le mot de passe 
+user.show.link.leave_period: Congés
+user.show.link.meeting: Réunions
 
 user.index.browser.title: Liste des employés
 user.index.page.title: Liste des employés
 user.index.table.username: Nom d'utilisateur
 user.index.table.email: Email
-user.index.table.firstname: Prénom
-user.index.table.lastname: Nom
+user.index.table.roles: Autorisations
 user.index.table.state: État
 user.index.table.actions: Actions
 user.index.table.actions.show: Voir
 user.index.table.actions.create: Ajouter
 user.index.table.actions.invite: Inviter
 user.index.table.actions.disable: Désactiver
+user.index.table.actions.disable.confirm: Êtes-vous sûr de vouloir désactiver cet employé ?
+
+user.create.browser.title: Nouvel employé
+user.create.page.title: Nouvel employé
+user.create.message.success: Utilisateur ajouté
+user.create_and_invite.message.success: Utilisateur ajouté et invité
+
+user.update.browser.title: Mise à jour de l'employé
+user.update.page.title: Mise à jour de l'employé
+user.update.message.success: Employé mis à jour
+
+user.update_password.browser.title: Mise à jour du mot de passe
+user.update_password.page.title: Mise à jour du mot de passe
+user.update_password.message.success: Mot de passe mis à jour
+
+user.invite.message.success: Invitation envoyée
+
+user.disable.message.success: Utilisateur désactivé
+
+user.form.email.label: Email
+user.form.username.label: Nom d'utilisateur
+user.form.firstname.label: Prénom
+user.form.lastname.label: Nom
+user.form.roles.label: Autorisations
+user.form.plain_password.label: Mot de passe
+user.form.plain_password_repeat.label: Répétez votre mot de passe
+user.form.roles.help: |
+  <p>Les utilisateurs ont le droit de transmettre des demandes de congés et d'accéder aux divers contenus publiques. 
+  Pour utiliser les autres fonctionnalités, il est nécessaire d'avoir des autorisations spécifiques :</p>
+  <ul><li><span class="fw-bold">Intégrales :</span> toutes les autorisations.</li>
+  <li><span class="fw-bold">Gestion d'employés :</span> ajouter, inviter, modifier et désactiver des employés</li>
+  <li><span class="fw-bold">Gestion des clients :</span> ajouter, modifier et désactiver des clients</li>
+  <li><span class="fw-bold">Gestions des projets :</span> créer, modifier et cloturer des projets</li>
+  <li><span class="fw-bold">Gestions des réunions :</span> créer, modifier, cloturer des réunions</li>
+  <li><span class="fw-bold">Gestions des congés :</span> accepter ou refuser les demandes de congés</li></ul>
+user.form.invite.label: Envoyer l'invitation immédiatement
+user.form.cancel.label: Retour 
+user.form.submit.label: Confirmer 
+
+user.email.invitation.subject: "HRM : invitation"
+user.email.invitation.title: Bonjour %username%
+user.email.invitation.content: Vous êtes invité a rejoindre HRM, cliquez sur le lien ci-dessous afin de finaliser votre compte utilisateur.
+user.email.invitation.cta: Finaliser mon compte  

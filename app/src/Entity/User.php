@@ -6,6 +6,7 @@ use DateTime;
 use DateTimeInterface;
 use App\Enum\UserRoleEnum;
 use App\Enum\UserStateEnum;
+use App\Interface\OwnedInterface;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
@@ -21,7 +22,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 #[UniqueEntity(fields: ['username'], message: 'user.username.assert.unique')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_USERNAME', fields: ['username'])]
-class User implements UserInterface, PasswordAuthenticatedUserInterface, EquatableInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, EquatableInterface, OwnedInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -42,7 +43,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
     private ?string $password = null;
 
     #[Assert\NotBlank(message: 'user.username.assert.not_blank')]
-    #[Assert\Length(max: 255, maxMessage: 'user.username.asser.length')]
+    #[Assert\Length(max: 255, maxMessage: 'user.username.assert.length')]
     #[ORM\Column(length: 255)]
     private ?string $username = null;
 
@@ -59,6 +60,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
     #[ORM\Column(length: 255, enumType: UserStateEnum::class)]
     private ?UserStateEnum $state = UserStateEnum::Created;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $validationToken = null;
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?DateTimeInterface $updatedAt = null;
 
@@ -73,6 +77,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getOwner(): User
+    {
+        return $this;
     }
 
     public function getEmail(): ?string
@@ -103,6 +112,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
         $roles[] = UserRoleEnum::User->value; 
 
         return array_unique($roles);
+    }
+
+    /**
+     * @return UserRoleEnum[]
+     */
+    public function getEnumRoles(): array
+    {
+        $enumRoles = [];
+        foreach($this->getRoles() as $role) {
+            $enumRoles[] = UserRoleEnum::from($role);
+        }
+
+        return $enumRoles;
     }
 
     /** @param array<string> $roles */
@@ -185,6 +207,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
     public function setState(string $state): static
     {
         $this->state = UserStateEnum::tryFrom($state);
+
+        return $this;
+    }
+
+    public function getValidationToken(): ?string
+    {
+        return $this->validationToken;
+    }
+
+    public function setValidationToken(?string $validationToken): static
+    {
+        $this->validationToken = $validationToken;
 
         return $this;
     }

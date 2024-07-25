@@ -18,11 +18,20 @@
                     >{{ 'general.navbar.link.user'|trans }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">{{ 'general.navbar.link.vacation'|trans }}</a>
+                    <a class="nav-link" href="#">{{ 'general.navbar.link.customer'|trans }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">{{ 'general.navbar.link.project'|trans }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">{{ 'general.navbar.link.meeting'|trans }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">{{ 'general.navbar.link.leave_period'|trans }}</a>
                 </li>
             </ul>
             <div class="mx-lg-2">
-                <a class="text fs-5" href="">{{ app.user.username }}</a>
+                <a class="text fs-5" href="{{ path('app_user_show', {'user': app.user.id}) }}">{{ app.user.username }}</a>
                 <a class="text-danger ms-3" href="/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
             </div>
         </div>

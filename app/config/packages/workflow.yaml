@@ -18,13 +18,12 @@ framework:
             transitions:
                 invite:
                     guard: "is_granted('ROLE_USER_MANAGER')"
-                    from: [created, invited]
+                    from: [created, invited, disabled]
                     to: invited
                 enable:
-                    guard: "is_granted('ROLE_USER_MANAGER')"
                     from: invited
                     to: enabled
                 disable:
                     guard: "is_granted('ROLE_USER_MANAGER') and !subject.isAdmin()"
-                    from: enabled
+                    from: [enabled, invited]
                     to: disabled

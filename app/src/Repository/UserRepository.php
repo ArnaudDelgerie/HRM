@@ -36,6 +36,10 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
        public function getUsers(): Query
        {
-           return $this->createQueryBuilder('u')->orderBy('u.id', 'ASC')->getQuery();
+            return $this
+                ->createQueryBuilder('u')
+                ->orderBy("CASE WHEN u.state = 'created' THEN 1 WHEN u.state = 'invited' THEN 2 WHEN u.state = 'enabled' THEN 3 WHEN u.state = 'disabled' THEN 4 ELSE 5 END")
+                ->addOrderBy('u.id', 'ASC')
+                ->getQuery();
        }
 }

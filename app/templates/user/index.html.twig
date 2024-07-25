@@ -7,9 +7,11 @@
     <div class="d-flex justify-content-between">
         <h1 class="fs-3 text">{{ 'user.index.page.title'|trans }}</h1>
         {% if is_granted('ROLE_USER_MANAGER') %}
-        <a class="btn btn-primary btn-sm mb-2" href="#">
-            <i class="fa-solid fa-user-plus me-1"></i>
-            {{ 'user.index.table.actions.create'|trans }}
+        <a class="btn btn-primary btn-sm mb-2" href="{{ path('app_user_create') }}">
+            <i class="fa-solid fa-user-plus"></i>
+            <span class="d-none d-sm-inline ms-1">
+                {{ 'user.index.table.actions.create'|trans }}
+            </span>
         </a>
         {% endif %}
     </div>
@@ -19,10 +21,9 @@
                 <thead>
                     <tr>
                         <th scope="col">{{ 'user.index.table.username'|trans }}</th>
-                        <th class="d-none d-md-table-cell" scope="col">{{ 'user.index.table.email'|trans }}</th>
-                        <th class="d-none d-xl-table-cell" scope="col">{{ 'user.index.table.firstname'|trans }}</th>
-                        <th class="d-none d-xl-table-cell" scope="col">{{ 'user.index.table.lastname'|trans }}</th>
-                        <th scope="col">{{ 'user.index.table.state'|trans }}</th>
+                        <th class="d-none d-xl-table-cell" scope="col">{{ 'user.index.table.email'|trans }}</th>
+                        <th class="d-none d-md-table-cell" scope="col">{{ 'user.index.table.roles'|trans }}</th>
+                        <th class="d-none d-xxl-table-cell" scope="col">{{ 'user.index.table.state'|trans }}</th>
                         <th scope="col">{{ 'user.index.table.actions'|trans }}</th>
                     </tr>
                 </thead>
@@ -31,28 +32,45 @@
                     <tr>
                         <td>{{ user.username }}</td>
                         <td class="d-none d-md-table-cell">{{ user.email }}</td>
-                        <td class="d-none d-xl-table-cell">{{ user.firstname }}</td>
-                        <td class="d-none d-xl-table-cell">{{ user.lastname }}</td>
-                        <td class="text-capitalize">{{ user.enumState|trans }}</td>
+                        <td class="d-none d-xl-table-cell">
+                            {% for i, role in user.enumRoles %}
+                                {% if i < 3 %}
+                                <span class="badge bg-secondary me-2">{{ role|trans }}</span>
+                                {% elseif loop.last %}
+                                <span class="badge bg-secondary me-2">+{{ (user.enumRoles|length - 3) }}</span>
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td class="d-none d-xxl-table-cell" class="text-capitalize">{{ user.enumState|trans }}</td>
                         <td>
                             <div class="d-flex justify-content-start">
-                                <a class="btn btn-secondary btn-sm me-1">
+                                <a href="{{ path('app_user_show', {'user': user.id}) }}" class="btn btn-secondary btn-sm me-2">
                                     <i class="fa-regular fa-eye"></i>
-                                    {{ 'user.index.table.actions.show'|trans }}
+                                    <span class="d-none d-sm-inline ms-1">
+                                        {{ 'user.index.table.actions.show'|trans }}
+                                    </span>
                                 </a>
                                 {% if workflow_can(user, 'invite') %}
-                                <form action="" method="post">
-                                    <button class="btn btn-info btn-sm me-1">
-                                        <i class="fa-regular fa-paper-plane me-1"></i>
-                                        {{ 'user.index.table.actions.invite'|trans }}
+                                <form action="{{ path('app_user_invite', {'user': user.id}) }}" method="post">
+                                    <button class="btn btn-info btn-sm me-2">
+                                        <i class="fa-regular fa-paper-plane"></i>
+                                        <span class="d-none d-sm-inline ms-1">
+                                            {{ 'user.index.table.actions.invite'|trans }}
+                                        </span>
                                     </button>
                                 </form>
                                 {% endif %}
                                 {% if workflow_can(user, 'disable') %}
-                                <form action="" method="post">
+                                <form
+                                    method="post" 
+                                    action="{{ path('app_user_disable', {'user': user.id}) }}"
+                                    data-turbo-confirm="{{ 'user.index.table.actions.disable.confirm'|trans }}"
+                                >
                                     <button class="btn btn-danger btn-sm">
-                                        <i class="fa-solid fa-ban me-1"></i>
-                                        {{ 'user.index.table.actions.disable'|trans }}
+                                        <i class="fa-solid fa-ban"></i>
+                                        <span class="d-none d-sm-inline ms-01">
+                                            {{ 'user.index.table.actions.disable'|trans }}
+                                        </span>
                                     </button>
                                 </form>
                                 {% endif %}
