@@ -1,7 +1,89 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div>
-    <h1>Home index</h1>
-</div> 
+<div class="container-fluid p-0 p-md-3">
+    <div data-controller="calendar">
+        <div class="row offset-0 col offset-sm-2 col-sm-8 offset-md-3 col-md-6 offset-lg-4 col-lg-4 offset-xl-5 col-xl-2 mb-1">
+            <div class="d-flex justify-content-center">
+                <button 
+                        data-calendar-target="navCta"
+                        class="btn btn-secondary d-none"
+                        data-calendar-nb-month-param="1"
+                        data-calendar-nav-cta-type="month"
+                        data-action="click->calendar#removeMonth"
+                >
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <button
+                        data-calendar-target="navCta"
+                        data-calendar-nb-day-param="7"
+                        class="btn btn-secondary d-none"
+                        data-calendar-nav-cta-type="week"
+                        data-action="click->calendar#removeDay"
+                >
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <button
+                        class="btn btn-secondary"
+                        data-calendar-target="navCta"
+                        data-calendar-nb-day-param="1"
+                        data-calendar-nav-cta-type="day"
+                        data-action="click->calendar#removeDay"
+                >
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <input
+                        type="date" 
+                        class="form-control mx-2" 
+                        data-calendar-target="dateInput" 
+                        data-action="change->calendar#updateCurrentDateFromDateInput"
+                />
+                <button
+                        class="btn btn-secondary"
+                        data-calendar-target="navCta"
+                        data-calendar-nb-day-param="1"
+                        data-calendar-nav-cta-type="day"
+                        data-action="click->calendar#addDay"
+                >
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+                <button
+                        data-calendar-target="navCta"
+                        data-calendar-nb-day-param="7"
+                        class="btn btn-secondary d-none"
+                        data-calendar-nav-cta-type="week"
+                        data-action="click->calendar#addDay"
+                >
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+                <button
+                        data-calendar-target="navCta"
+                        data-calendar-nb-month-param="1"
+                        class="btn btn-secondary d-none"
+                        data-calendar-nav-cta-type="month"
+                        data-action="click->calendar#addMonth"
+                >
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+        <div class="row offset-0 col offset-sm-2 col-sm-8 offset-md-3 col-md-6 offset-lg-4 col-lg-4 offset-xl-5 col-xl-2 mb-1">
+            <div class="d-flex justify-content-center">
+                <select
+                        class="form-select"
+                        data-calendar-target="viewInput" 
+                        data-action="change->calendar#updateView"
+                > 
+                    <option value="day" selected>Jour</option>
+                    <option value="week">Semaine</option>
+                    <option value="month">Mois</option>
+                </select>
+            </div>
+        </div>
+        <div class="row offset-0 col offset-sm-2 col-sm-8 offset-md-3 col-md-6 offset-lg-4 col-lg-4 offset-xl-5 col-xl-2 mb-2">
+            <div data-calendar-target="stringDate" class="text-center text-uppercase"></div>
+        </div>
+        <div style="height: 700px;" data-calendar-target="calendar"></div>
+    </div>
+</div>
 {% endblock %}
