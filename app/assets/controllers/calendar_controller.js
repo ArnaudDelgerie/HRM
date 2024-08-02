@@ -6,14 +6,14 @@ export default class extends Controller {
     static targets = ['dateInput', 'viewInput', 'stringDate', 'calendar', 'navCta'];
 
     initialize() {
-        this.view = 'day';
+        this.view = 'week';
         this.calendar = null;
         this.currentDate = new Date();
     }
 
     connect() {
         this.initCalendar();
-        this.updateView();
+        // this.updateView();
         if (this.dateInputTarget.value) {
             this.updateCurrentDateFromDateInput();
         } else {
@@ -73,7 +73,7 @@ export default class extends Controller {
 
     initCalendar() {
         this.calendar = new Calendar(this.calendarTarget, {
-            defaultView: 'day',
+            defaultView: this.view,
             isReadOnly: false,
             week: {
                 workweek: true,
