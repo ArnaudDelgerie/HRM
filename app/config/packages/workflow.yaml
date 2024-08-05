@@ -27,3 +27,26 @@ framework:
                     guard: "is_granted('ROLE_USER_MANAGER') and !subject.isAdmin()"
                     from: [enabled, invited]
                     to: disabled
+        leave_request:
+            type: 'state_machine'
+            audit_trail:
+                enabled: true
+            marking_store:
+                type: 'method'
+                property: 'state'
+            supports:
+                App\Entity\LeaveRequest
+            initial_marking: pending
+            places:
+                - pendind
+                - accepted
+                - rejected
+            transitions:
+                accept:
+                    guard: "is_granted('ROLE_LEAVE_MANAGER')"
+                    from: [pending, rejected]
+                    to: accepted
+                reject:
+                    guard: "is_granted('ROLE_LEAVE_MANAGER')"
+                    from: [pending, accepted]
+                    to: rejected

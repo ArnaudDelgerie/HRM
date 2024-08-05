@@ -7,6 +7,8 @@ use DateTimeInterface;
 use App\Enum\UserRoleEnum;
 use App\Enum\UserStateEnum;
 use App\Interface\OwnedInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
@@ -28,6 +30,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
+    #[ORM\OneToMany(targetEntity: LeaveRequest::class, mappedBy: 'user', orphanRemoval: true)]
+    private Collection $leaveRequests;
 
     #[Assert\Email(message: 'user.email.assert.email')]
     #[Assert\NotBlank(message: 'user.email.assert.not_blank')]
@@ -69,6 +74,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?DateTimeInterface $createdAt = null;
 
+    public function __construct()
+    {
+        $this->leaveRequests = new ArrayCollection();
+    }
+
     public function __toString(): string
     {
         return (string) $this->username;
@@ -77,6 +87,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getLeaveRequests(): Collection
+    {
+        return $this->leaveRequests;
+    }
+
+    public function addLeaveRequest(LeaveRequest $leaveRequest): static
+    {
+        if (!$this->leaveRequests->contains($leaveRequest)) {
+            $this->leaveRequests->add($leaveRequest);
+            $leaveRequest->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLeaveRequest(LeaveRequest $leaveRequest): static
+    {
+        if ($this->leaveRequests->removeElement($leaveRequest)) {
+            if ($leaveRequest->getUser() === $this) {
+                $leaveRequest->setUser(null);
+            }
+        }
+
+        return $this;
     }
 
     public function getOwner(): User

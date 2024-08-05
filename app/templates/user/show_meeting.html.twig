@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'user.show.browser.title'|trans }}{% endblock %}
+
+{% block body %}
+<div class="container-sm mt-5">
+    <h1 class="fs-3 text">{{ 'user.show.page.title'|trans }}</h1>
+    {{ include('user/partial/_show_card.html.twig', {'user': user}) }} 
+    {{ include('user/partial/_show_nav.html.twig', {'user': user}) }} 
+</div>
+{% endblock %}

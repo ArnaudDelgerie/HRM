@@ -1,0 +1,68 @@
+leave_request.state.pending: <span class="text-info">En attente</span>
+leave_request.state.accepted: <span class="text-success">Acceptée</span>
+leave_request.state.rejected: <span class="text-danger">Rejetée</span>
+
+leave_request.type.paid: Congé payé
+leave_request.type.unpaid: Congé sans solde
+leave_request.type.maternity: Congé maternité/paternité
+leave_request.type.parental: Congé parental
+leave_request.type.sick: Congés maladie
+leave_request.type.worker_compensation_leave: Accident de travail
+
+leave_request.form.type.label: Type
+leave_request.form.day_leave_requests.label: Jours
+leave_request.form.day_leave_request_add.label: Ajouter
+leave_request.form.requestComment.label: Commentaire
+leave_request.form.responseComment.label: Commentaire
+leave_request.form.submit.label: Valider
+leave_request.form.submit_accept.label: Accepter
+leave_request.form.submit_reject.label: Rejeter
+leave_request.form.cancel.label: Annuler
+
+day_leave_request.form.day_date.label: Date
+day_leave_request.form.period.label: Periode
+
+day_leave_request.period.all_day: Journée
+day_leave_request.period.morning: Matin
+day_leave_request.period.afternoon: Après-midi
+
+leave_request.index.browser.title: Liste des demandes de congés
+leave_request.index.page.title: Liste des demandes de congés
+leave_request.index.empty: Aucune demandes de congés
+
+leave_request.create.browser.title: Nouvelle demande de congés
+leave_request.create.page.title: Nouvelle demande de congés
+leave_request.create.message.success: Demande de congés envoyée
+
+leave_request.update.browser.title: Mise à jour d'une demande de congés
+leave_request.update.page.title: Mise à jour d'une demande de congés
+leave_request.update.message.success: Mise à jour de la demande de congés envoyée
+
+leave_request.manage.browser.title: Gestion d'une demande de congés
+leave_request.manage.page.title: Gestion d'une demande de congés
+leave_request.manage.message.accept_success: Demande de congés acceptée
+leave_request.manage.message.reject_success: Demande de congés rejetée
+
+leave_request.delete.message.success: Demande de congés supprimée
+
+leave_request.item.update: Modifier
+leave_request.item.manage: Gérer
+leave_request.item.delete: Supprimer
+leave_request.item.nb_days: jour(s)
+leave_request.item.day_date: Date
+leave_request.item.period: Période
+
+leave_request.email.created.subject: "HRM : demande de congés"
+leave_request.email.created.title: Bonjour %username%
+leave_request.email.created.content: Une demande de congès vient d'être déposée par %leaveRequestUsername%
+leave_request.email.created.cta: Gérer la demande 
+
+leave_request.email.accepted.subject: "HRM : demande de congés acceptée"
+leave_request.email.accepted.title: Bonjour %username%
+leave_request.email.accepted.content: Votre demande de congés a été acceptée
+leave_request.email.accepted.cta: Voir mes demandes
+
+leave_request.email.rejected.subject: "HRM : demande de congés refusée"
+leave_request.email.rejected.title: Bonjour %username%
+leave_request.email.rejected.content: Votre demande de congés a été refusée
+leave_request.email.rejected.cta: Voir mes demandes

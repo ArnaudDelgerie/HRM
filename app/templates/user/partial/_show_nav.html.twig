@@ -1,0 +1,25 @@
+{% set leaveTab = app.request.attributes.get('_route') == 'app_user_show_leave' %}
+{% set meetingTab = app.request.attributes.get('_route') == 'app_user_show_meeting' %}
+
+<div class="mt-5">
+    <ul class="nav justify-content-center border border-secondary fs-5">
+        <li class="nav-item{% if leaveTab %} bg-dark{% endif %}">
+            <a 
+                {% if leaveTab %}aria-current="page" {% endif %}
+                class="nav-link{% if leaveTab %} active{% endif %}"
+                href="{{ path('app_user_show_leave', {'user': user.id}) }}"
+            >
+                {{ 'user.show.link.leave'|trans }}
+            </a>
+        </li>
+        <li class="nav-item{% if meetingTab %} bg-dark{% endif %}">
+            <a 
+                {% if meetingTab %}aria-current="page" {% endif %}
+                class="nav-link {% if meetingTab %} active{% endif %}"
+                href="{{ path('app_user_show_meeting', {'user': user.id}) }}"
+            >
+                {{ 'user.show.link.meeting'|trans }}
+            </a>
+        </li>
+    </ul>
+</div>

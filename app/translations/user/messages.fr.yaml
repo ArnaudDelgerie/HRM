@@ -9,7 +9,7 @@ user.role.user_manager: Gestion d'employés
 user.role.customer_manager: Gestion de clients
 user.role.project_manager: Gestion de projets
 user.role.meeting_manager: Gestion de réunions
-user.role.leave_period_manager: Gestion de congés
+user.role.leave_manager: Gestion de congés
 
 user.show.browser.title: Détail de l'employé
 user.show.page.title: Détail de l'employé
@@ -18,8 +18,11 @@ user.show.actions.disable: Désactiver
 user.show.actions.disable.confirm: Êtes-vous sûr de vouloir désactiver cet employé ?
 user.show.actions.update: Modifier
 user.show.actions.update_password: Modifier le mot de passe 
-user.show.link.leave_period: Congés
+user.show.link.leave: Congés
 user.show.link.meeting: Réunions
+user.show.leave.title: Demandes de congés
+user.show.leave.actions.create: Nouvelle demande
+user.show.leave.empty: Aucune demande effectuée
 
 user.index.browser.title: Liste des employés
 user.index.page.title: Liste des employés

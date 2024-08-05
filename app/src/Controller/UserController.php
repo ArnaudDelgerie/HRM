@@ -8,6 +8,7 @@ use App\Form\CreateUserType;
 use App\Form\UpdateUserType;
 use App\Form\UserPasswordType;
 use App\Message\UserInvitationMessage;
+use App\Repository\LeaveRequestRepository;
 use App\Repository\UserRepository;
 use App\Trait\PaginatorTrait;
 use Doctrine\ORM\EntityManagerInterface;
@@ -45,10 +46,27 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{user}/{tab?}', name: 'app_user_show', defaults: ['tab' => 'meeting'], requirements: ['user' => Requirement::POSITIVE_INT, 'tab' => "leave-period|meeting"])]
-    public function show(User $user): Response
+    #[Route('/{user}/leave', name: 'app_user_show_leave', requirements: ['user' => Requirement::POSITIVE_INT])]
+    public function showLeave(User $user, Request $request, LeaveRequestRepository $leaveRequestRepository): Response
     {
-        return $this->render('user/show.html.twig', [
+        $page = (int) $request->get('page', 1);
+        $limit = $this->getParameter('paginator_limit');
+
+        $leaveRequestsQuery = $leaveRequestRepository->getLeaveRequestsByUser($user);
+        $leaveRequestsPaginator = $this->paginate($leaveRequestsQuery, $page, $limit);
+        $paginationData = $this->getPaginationData($leaveRequestsPaginator, $request, $page, $limit);
+
+        return $this->render('user/show_leave.html.twig', [
+            'user' => $user,
+            'paginationData' => $paginationData,
+            'leaveRequests' => $leaveRequestsPaginator->getIterator(),
+        ]);
+    }
+
+    #[Route('/{user}/meeting', name: 'app_user_show_meeting', requirements: ['user' => Requirement::POSITIVE_INT])]
+    public function showMeeting(User $user): Response
+    {
+        return $this->render('user/show_meeting.html.twig', [
             'user' => $user,
         ]);
     }
@@ -72,7 +90,7 @@ class UserController extends AbstractController
                 $this->addFlash('success', 'user.create.message.success');
             }
 
-            return $this->redirectToRoute('app_user_show', ['user' => $user->getId()]);
+            return $this->redirectToRoute('app_user_show_leave', ['user' => $user->getId()]);
         }
 
         return $this->render('user/create.html.twig', [
@@ -98,7 +116,7 @@ class UserController extends AbstractController
 
             $this->addFlash('success', 'user.update.message.success');
 
-            return $this->redirectToRoute('app_user_show', ['user' => $user->getId()]);
+            return $this->redirectToRoute('app_user_show_leave', ['user' => $user->getId()]);
         }
 
         return $this->render('user/update.html.twig', [
@@ -123,7 +141,7 @@ class UserController extends AbstractController
 
             $this->addFlash('success', 'user.update_password.message.success');
 
-            return $this->redirectToRoute('app_user_show', ['user' => $user->getId()]);
+            return $this->redirectToRoute('app_user_show_leave', ['user' => $user->getId()]);
         }
 
         return $this->render('user/update_password.html.twig', [

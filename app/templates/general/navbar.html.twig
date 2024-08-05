@@ -1,4 +1,5 @@
 {% set isUserTab = app.request.attributes.get('_route') == 'app_user' %}
+{% set isLeaveTab = app.request.attributes.get('_route') == 'app_leave_request' %}
 
 <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
     <div class="container-fluid">
@@ -27,11 +28,15 @@
                     <a class="nav-link" href="#">{{ 'general.navbar.link.meeting'|trans }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">{{ 'general.navbar.link.leave_period'|trans }}</a>
+                    <a 
+                        {% if isLeaveTab %} aria-current="page"{% endif %} 
+                        class="nav-link{% if isLeaveTab %} active{% endif %}"
+                        href="{{ path('app_leave_request') }}"
+                    >{{ 'general.navbar.link.leave'|trans }}</a>
                 </li>
             </ul>
             <div class="mx-lg-2">
-                <a class="text fs-5" href="{{ path('app_user_show', {'user': app.user.id}) }}">{{ app.user.username }}</a>
+                <a class="text fs-5" href="{{ path('app_user_show_leave', {'user': app.user.id}) }}">{{ app.user.username }}</a>
                 <a class="text-danger ms-3" href="/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
             </div>
         </div>

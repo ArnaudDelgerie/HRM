@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'leave_request.index.browser.title'|trans }}{% endblock %}
+
+{% block body %}
+<div class="container-sm mt-5">
+    <div class="d-flex justify-content-between">
+        <h1 class="fs-3 text">{{ 'leave_request.index.page.title'|trans }}</h1>
+        <a class="btn btn-primary btn-sm mb-2" href="{{ path('app_leave_request_create') }}">
+            <i class="fa-solid fa-plus-circle"></i>
+            <span class="d-none d-sm-inline ms-1">
+                {{ 'user.show.leave.actions.create'|trans }}
+            </span>
+        </a>
+    </div>
+    <div>
+        {% if leaveRequests|length > 0 %}
+        {% for leaveRequest in leaveRequests %}
+        {{ include('leave_request/partial/_leave_request_item.html.twig', {'leaveRequest': leaveRequest}) }} 
+        {% endfor %}
+        {{ include('general/pagination.html.twig', {'paginationData': paginationData}) }}
+        {% else %}
+            <p class="mt-2 text-center">{{ 'leave_request.index.empty'|trans }}</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

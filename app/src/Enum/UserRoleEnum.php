@@ -20,7 +20,7 @@ enum UserRoleEnum: string implements TranslatableInterface
     
     case MeetingManager = 'ROLE_MEETING_MANAGER';
     
-    case LeavePeriodManager = 'ROLE_LEAVE_PERIOD_MANAGER';
+    case LeaveManager = 'ROLE_LEAVE_MANAGER';
 
     public function trans(TranslatorInterface $translator, string $locale = null): string
     {

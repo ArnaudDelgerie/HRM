@@ -44,7 +44,7 @@
                         <td class="d-none d-xxl-table-cell" class="text-capitalize">{{ user.enumState|trans }}</td>
                         <td>
                             <div class="d-flex justify-content-start">
-                                <a href="{{ path('app_user_show', {'user': user.id}) }}" class="btn btn-secondary btn-sm me-2">
+                                <a href="{{ path('app_user_show_leave', {'user': user.id}) }}" class="btn btn-secondary btn-sm ms-2">
                                     <i class="fa-regular fa-eye"></i>
                                     <span class="d-none d-sm-inline ms-1">
                                         {{ 'user.index.table.actions.show'|trans }}
@@ -52,7 +52,7 @@
                                 </a>
                                 {% if workflow_can(user, 'invite') %}
                                 <form action="{{ path('app_user_invite', {'user': user.id}) }}" method="post">
-                                    <button class="btn btn-info btn-sm me-2">
+                                    <button class="btn btn-info btn-sm ms-2">
                                         <i class="fa-regular fa-paper-plane"></i>
                                         <span class="d-none d-sm-inline ms-1">
                                             {{ 'user.index.table.actions.invite'|trans }}
@@ -66,7 +66,7 @@
                                     action="{{ path('app_user_disable', {'user': user.id}) }}"
                                     data-turbo-confirm="{{ 'user.index.table.actions.disable.confirm'|trans }}"
                                 >
-                                    <button class="btn btn-danger btn-sm">
+                                    <button class="btn btn-danger btn-sm ms-2">
                                         <i class="fa-solid fa-ban"></i>
                                         <span class="d-none d-sm-inline ms-01">
                                             {{ 'user.index.table.actions.disable'|trans }}

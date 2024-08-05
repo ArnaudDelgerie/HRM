@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'leave_request.create.browser.title'|trans }}{% endblock %}
+
+{% block body %}
+<div class="container-sm mt-5">
+    <div class="row col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3 col-xs-12">
+        <h1 class="fs-3 text">{{ 'leave_request.create.page.title'|trans }}</h1>
+        {{ form_start(form)}}
+        <div
+            data-controller="form-child"
+            data-form-child-index-value="{{ form.dayLeaveRequests|length }}"
+        >
+            <template data-form-child-target="template">
+                <div class="input-group mb-3" data-form-child-container>
+                    {{ form_widget(form.dayLeaveRequests.vars.prototype.dayDate, {'attr': {'class': 'form-control'}})}}
+                    <span class="mx-1"></span>
+                    {{ form_widget(form.dayLeaveRequests.vars.prototype.period, {'attr': {'class': 'form-select'}}) }}
+                    <button 
+                            type="button"
+                            class="btn btn-danger btn-sm ms-2"
+                            data-action="click->form-child#remove"
+                            data-form-child-target-attribute-param="[data-form-child-container]"
+                    >
+                        <i class="fa-solid fa-ban"></i>
+                    </button>
+                </div>
+            </template>
+
+            <div class="mb-3">
+                {{ form_label(form.type, null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.type, {'attr': {'class': 'form-select'}}) }}
+            </div>
+
+            <div data-form-child-target="childContainer">
+                {{ form_label(form.dayLeaveRequests, null, {'label_attr': {'class': 'form-label'}}) }}
+                {% for dayLeaveRequest in form.dayLeaveRequests %}
+                <div class="input-group mb-3" data-form-child-container>
+                    {{ form_widget(dayLeaveRequest.dayDate, {'attr': {'class': 'form-control'}}) }}
+                    <span class="mx-1"></span>
+                    {{ form_widget(dayLeaveRequest.period, {'attr': {'class': 'form-select'}}) }}
+                    <button 
+                            type="button"
+                            {% if loop.first %}disabled{% endif %}
+                            class="btn btn-danger btn-sm ms-2"
+                            {% if not loop.first %}
+                            data-action="click->form-child#remove"
+                            data-form-child-target-attribute-param="[data-form-child-container]"
+                            {% endif %}
+                    >
+                        <i class="fa-solid fa-ban"></i>
+                    </button>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <button type="button" data-action="click->form-child#add" class="btn btn-info">
+                    <span class="fa fa-plus-circle"></span>
+                    {{ 'leave_request.form.day_leave_request_add.label'|trans }}
+                </button>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.requestComment, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.requestComment, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="text-center mt-4">
+            <a class="btn btn-secondary px-4 px-xs-5 mx-1" href="{{ path('app_user_show_leave', {'user': app.user.id}) }}">
+                {{'leave_request.form.cancel.label'|trans }}
+            </a>
+            {{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary px-4 px-xs-5 mx-1'}}) }}
+        </div>
+        {{ form_end(form)}}
+    </div>
+</div>
+{% endblock %}

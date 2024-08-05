@@ -34,13 +34,14 @@ trait PaginatorTrait
         $nbPage = round(ceil($nbResult / $limit));
         $routeName = $request->get('_route');
         $queryParameters = $request->query->all();
+        $routeParameters = $request->attributes->get('_route_params');
         for($i = 1; $i <= $nbPage; $i++) {
             $queryParameters['page'] = $i;
             $paginationData[] = [
                 'page' => $i,
                 'current' => $page === $i,
                 'routeName' => $routeName,
-                'queryParameters' => $queryParameters, 
+                'queryParameters' => array_merge($routeParameters, $queryParameters), 
             ]; 
         }
 

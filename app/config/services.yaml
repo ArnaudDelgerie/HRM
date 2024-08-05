@@ -21,5 +21,10 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    App\ExpressionLanguage\WorkflowExpression:
+        arguments:
+            $workflowRegistry: '@workflow.registry'
+        tags:
+            - { name: 'security.expression_language_provider' }
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

@@ -1,0 +1,2 @@
+day_leave_request.leave_request_day_date.assert.unique: Il n'est pas possible de faire plusieues demandes pour le même jour
+day_leave_request.day_date.assert.not_blank: La date est requise
