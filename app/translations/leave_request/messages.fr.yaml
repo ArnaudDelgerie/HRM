@@ -48,6 +48,7 @@ leave_request.delete.message.success: Demande de congés supprimée
 leave_request.item.update: Modifier
 leave_request.item.manage: Gérer
 leave_request.item.delete: Supprimer
+leave_request.item.delete.confirm: Êtes-vous sûr de vouloir supprimer cette demande ?
 leave_request.item.nb_days: jour(s)
 leave_request.item.day_date: Date
 leave_request.item.period: Période

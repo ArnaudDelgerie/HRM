@@ -2,9 +2,18 @@
     {% set withActions = true %}
 {% endif %}
 
+{% if withUsername is not defined %}
+    {% set withUsername = true %}
+{% endif %}
+
 <div class="table-responsive mb-1">
     <div class="mb-1 fw-bold">
-        {{ leaveRequest.type|trans }} - {{ leaveRequest.nbDays }} {{ 'leave_request.item.nb_days'|trans }} - {{ leaveRequest.enumState|trans|raw }}
+        {% if withUsername %}
+        {{ leaveRequest.user.username }} -
+        {% endif %}
+        {{ leaveRequest.type|trans }} - 
+        {{ leaveRequest.nbDays }} {{ 'leave_request.item.nb_days'|trans }} - 
+        {{ leaveRequest.enumState|trans|raw }}
         {% if leaveRequest.responseComment is not null %}<span class="fst-italic">({{ leaveRequest.responseComment }})</span>{% endif %}
     </div>
     <table class="table table-hover border-secondary mb-1">
@@ -38,7 +47,10 @@
         </a>
         {% endif %}
         {% if is_granted('DELETE', leaveRequest) %}
-        <form action="{{ path('app_leave_request_delete', {'leaveRequest': leaveRequest.id}) }}">
+        <form 
+            action="{{ path('app_leave_request_delete', {'leaveRequest': leaveRequest.id}) }}"
+            data-turbo-confirm="{{ 'leave_request.item.delete.confirm'|trans }}"
+            >
             <button class="btn btn-danger btn-sm ms-2">
                 <i class="fa-solid fa-ban"></i>
                 <span class="d-none d-sm-inline ms-1">{{ 'leave_request.item.delete'|trans }}</span>

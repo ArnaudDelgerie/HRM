@@ -22,7 +22,7 @@
         <div>
             {% if leaveRequests|length > 0 %}
             {% for leaveRequest in leaveRequests %}
-            {{ include('leave_request/partial/_leave_request_item.html.twig', {'leaveRequest': leaveRequest}) }} 
+            {{ include('leave_request/partial/_leave_request_item.html.twig', {'leaveRequest': leaveRequest, 'withUsername': false}) }} 
             {% endfor %}
             {{ include('general/pagination.html.twig', {'paginationData': paginationData}) }}
             {% else %}

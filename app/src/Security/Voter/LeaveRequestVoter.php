@@ -67,7 +67,7 @@ class LeaveRequestVoter extends Voter
 
     private function candDelete(LeaveRequest $leaveRequest, User $user): bool
     {
-        return $leaveRequest->getUser()->getId() && $user->getId()
+        return $leaveRequest->getUser()->getId() === $user->getId()
             && $leaveRequest->getState() === LeaveRequestStateEnum::Pending->value;
     }
 }
