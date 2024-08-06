@@ -1,8 +1,10 @@
 import { Controller } from '@hotwired/stimulus';
 import Calendar from '@toast-ui/calendar';
+import { getSassVariable } from '../app';
 
 /* stimulusFetch: 'lazy' */
 export default class extends Controller {
+    static values = {'alldayEventsUrl': String};
     static targets = ['dateInput', 'viewInput', 'stringDate', 'calendar', 'navCta'];
 
     initialize() {
@@ -25,12 +27,14 @@ export default class extends Controller {
         this.dateInputTarget.value = this.currentDate.toISOString().split('T')[0];
         this.calendar.setDate(this.currentDate);
         this.updateStringDate();
+        this.getAlldayEvents();
     }
 
     updateCurrentDateFromDateInput() {
         this.currentDate = new Date(this.dateInputTarget.value);
         this.calendar.setDate(this.currentDate);
         this.updateStringDate();
+        this.getAlldayEvents();
     }
 
     updateStringDate() {
@@ -97,23 +101,41 @@ export default class extends Controller {
                     return `${time.getHours()}h`;
                 },
             },
+            theme: {
+                common: {
+                    backgroundColor: getSassVariable('light'), 
+                }
+            }
         });
     }
+
+    getAlldayEvents() {
+        fetch(`${this['alldayEventsUrlValue']}?date=${encodeURIComponent(this.currentDate.toISOString())}`, {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+            credentials: 'include',
+        })
+            .then(response => response.json())
+            .then(data => {
+                data.dayLeaveRequests.forEach((dlr) => {
+                    dlr.backgroundColor = getSassVariable('info') 
+                    if (!this.calendar.getEvent(dlr.id, dlr.calendarId)) {
+                        this.calendar.createEvents([dlr])
+                    } else {
+                        this.calendar.updateEvent(dlr.id, dlr.calendarId, dlr);
+                    }
+                })
+                data.holidays.forEach((holiday) => {
+                    holiday.backgroundColor = getSassVariable('danger') 
+                    if (!this.calendar.getEvent(holiday.id, holiday.calendarId)) {
+                        this.calendar.createEvents([holiday])
+                    } else {
+                        this.calendar.updateEvent(holiday.id, holiday.calendarId, holiday);
+                    }
+                })
+            })
+            .catch(error => console.error(error));
+    }
 }
-
-
-// calendar.createEvents([
-//     {
-//         id: '1',
-//         calendarId: 'cal1',
-//         title: 'timed event',
-//         body: 'TOAST UI Calendar',
-//         start: '2024-07-25',
-//         end: '2024-07-25',
-//         location: 'Meeting Room A',
-//         attendees: ['A', 'B', 'C'],
-//         category: 'allday',
-//         state: 'Free',
-//         isReadOnly: false,
-//     }, // EventObject
-// ]);

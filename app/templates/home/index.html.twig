@@ -2,7 +2,7 @@
 
 {% block body %}
 <div class="container-fluid p-0 p-md-3">
-    <div data-controller="calendar">
+    <div data-controller="calendar" data-calendar-allday-events-url-value={{ path('app_calendar_all_day_events') }}>
         <div class="row offset-0 col offset-sm-2 col-sm-8 offset-md-3 col-md-6 offset-lg-4 col-lg-4 offset-xl-5 col-xl-2 mb-1">
             <div class="d-flex justify-content-center">
                 <!-- <button  -->

@@ -6,7 +6,6 @@ import bsCustomFileInput from 'bs-custom-file-input';
 import '@toast-ui/calendar/dist/toastui-calendar.min.css';
 
 bsCustomFileInput.init();
-
 document.addEventListener('turbo:load', function() {
     let popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
     popoverTriggerList.map(function(popoverTriggerEl) {
@@ -28,3 +27,7 @@ document.addEventListener('turbo:submit-end', function() {
         });
     }, 100)
 });
+
+export function getSassVariable(name) {
+    return getComputedStyle(document.documentElement).getPropertyValue(`--${name}`).trim();
+}

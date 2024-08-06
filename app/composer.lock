@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c90bc8a34b87cb5d5521ab8933aa16ea",
+    "content-hash": "3f3f92ca95a6b99c9297da04948ddcc2",
     "packages": [
         {
             "name": "composer/semver",
@@ -7881,6 +7881,63 @@
                 }
             ],
             "time": "2024-05-16T10:04:27+00:00"
+        },
+        {
+            "name": "umulmrum/holiday",
+            "version": "0.11.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/umulmrum/holiday.git",
+                "reference": "2dfca25f8eb12aacf2b25487f1fb1e5495f36f7b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/umulmrum/holiday/zipball/2dfca25f8eb12aacf2b25487f1fb1e5495f36f7b",
+                "reference": "2dfca25f8eb12aacf2b25487f1fb1e5495f36f7b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2"
+            },
+            "require-dev": {
+                "ext-json": "*",
+                "friendsofphp/php-cs-fixer": "^3.58",
+                "phpstan/phpstan": "^1.11",
+                "phpunit/phpunit": "~11.1",
+                "symfony/console": "~5.4|~6.4|~7.0",
+                "symfony/translation": "~5.4|~6.4|~7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Umulmrum\\Holiday\\": [
+                        "src"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stefan Kruppa",
+                    "email": "stefan@umulmrum.de"
+                }
+            ],
+            "description": "A PHP library to compute holidays. It's something :-)",
+            "keywords": [
+                "calendar",
+                "date",
+                "holiday",
+                "holidays",
+                "time"
+            ],
+            "support": {
+                "issues": "https://github.com/umulmrum/holiday/issues",
+                "source": "https://github.com/umulmrum/holiday/tree/0.11.0"
+            },
+            "time": "2024-06-11T17:52:11+00:00"
         },
         {
             "name": "webmozart/assert",
