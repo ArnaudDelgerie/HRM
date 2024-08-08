@@ -1,0 +1,59 @@
+meeting.visibility.public: Public
+meeting.visibility.private: Privée
+
+meeting.form.name.label: Nom
+meeting.form.description.label: Description
+meeting.form.visibility.label: Visibilité
+meeting.form.location.label: Lieu (optionnel)
+meeting.form.start_at.label: Date de début
+meeting.form.end_at.label: Date de fin
+meeting.form.meeting_participants.label: Participants
+meeting.form.participant_add.label: Ajouter
+meeting.form.submit.label: Valider
+meeting.form.cancel.label: Annuler
+
+meeting_participant.form.user.label: Employé
+
+meeting.create.browser.title: Nouvelle réunion
+meeting.create.page.title: Nouvelle réunion
+meeting.create.message.success: Réunion créée
+
+meeting.index.browser.title: Liste des réunions
+meeting.index.page.title: Liste des réunions
+meeting.index.table.name: Nom
+meeting.index.table.visibility: Visibilité
+meeting.index.table.start_at: Début
+meeting.index.table.end_at: Fin
+meeting.index.table.cancelled: Annulée
+meeting.index.table.actions: Actions
+meeting.index.table.actions.show: Voir
+meeting.index.table.actions.create: Ajouter
+meeting.index.empty: Aucune réunion
+
+meeting.show.browser.title: Détail de la réunion
+meeting.show.page.title: Détail de la réunion
+meeting.show.cancelled: Annulée
+meeting.show.description: Description
+meeting.show.location: Lieu
+meeting.show.start_at: Date de début
+meeting.show.end_at: Date de fin
+meeting.show.participants: Participants
+meeting.show.actions.update: Modifier
+meeting.show.actions.cancel: Annuler
+meeting.show.actions.cancel.confirm: Êtes-vous sûr de vouloir annuler cette réunion ?
+
+meeting.update.browser.title: Mise à jour de la réunion
+meeting.update.page.title: Mise à jour de la réunion
+meeting.update.message.success: Réunion mise à jour
+
+meeting.cancel.message.success: Réunion annulée
+
+meeting.email.participation_created.subject: "HRM: nouvelle réunion"
+meeting.email.participation_created.title: Bonjour %username%
+meeting.email.participation_created.content: Vous êtes convié(e) à participer à la réunion "%name%"
+meeting.email.participation_created.cta: Voir la réunion
+
+meeting.email.cancelled.subject: "HRM: réunion annulée"
+meeting.email.cancelled.title: Bonjour %username%
+meeting.email.cancelled.content: La réunion "%name%" a été annulée
+meeting.email.cancelled.cta: Voir la réunion

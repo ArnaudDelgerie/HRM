@@ -7,6 +7,11 @@
     <div class="row col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3 col-xs-12">
         <h1 class="fs-3 text">{{ 'leave_request.create.page.title'|trans }}</h1>
         {{ form_start(form)}}
+
+        <div class="mb-3">
+            {{ form_label(form.type, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.type, {'attr': {'class': 'form-select'}}) }}
+        </div>
         <div
             data-controller="form-child"
             data-form-child-index-value="{{ form.dayLeaveRequests|length }}"
@@ -26,11 +31,6 @@
                     </button>
                 </div>
             </template>
-
-            <div class="mb-3">
-                {{ form_label(form.type, null, {'label_attr': {'class': 'form-label'}}) }}
-                {{ form_widget(form.type, {'attr': {'class': 'form-select'}}) }}
-            </div>
 
             <div data-form-child-target="childContainer">
                 {{ form_label(form.dayLeaveRequests, null, {'label_attr': {'class': 'form-label'}}) }}

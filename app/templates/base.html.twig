@@ -21,7 +21,7 @@
     {% block navbar %}
     {{ include('general/navbar.html.twig') }}
     {% endblock %}
-    <main class="pb-5">
+    <main class="pb-3">
         {% block body %}{% endblock %}
         {% set successMessages = app.flashes('success') %}
         {% set errorMessages = app.flashes('error') %}

@@ -20,8 +20,8 @@ class DayLeaveRequestNormalizer implements NormalizerInterface
         $leaveRequest = $object->getLeaveRequest();
         $user = $leaveRequest->getUser();
         $data = [
-            'id' => $object->getId(),
-            'calendarId' => 'day_leave_request_' . $object->getId(),
+            'id' => 'day_leave_request_' . $object->getId(),
+            'calendarId' => 'day_leave_request',
             'title' => $leaveRequest->getType()->trans($this->translator) . ' - '. $user->getUsername() . ' - ' . $object->getPeriod()->trans($this->translator),
             'start' => $object->getDayDate()->format(DateTime::ATOM),
             'end' => $object->getDayDate()->format(DateTime::ATOM),

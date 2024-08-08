@@ -1,5 +1,6 @@
 {% set isUserTab = app.request.attributes.get('_route') == 'app_user' %}
 {% set isLeaveTab = app.request.attributes.get('_route') == 'app_leave_request' %}
+{% set isMeetingTab = app.request.attributes.get('_route') == 'app_meeting' %}
 
 <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
     <div class="container-fluid">
@@ -19,13 +20,11 @@
                     >{{ 'general.navbar.link.user'|trans }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">{{ 'general.navbar.link.customer'|trans }}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">{{ 'general.navbar.link.project'|trans }}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">{{ 'general.navbar.link.meeting'|trans }}</a>
+                    <a 
+                        {% if isMeetingTab %} aria-current="page"{% endif %} 
+                        class="nav-link{% if isMeetingTab %} active{% endif %}"
+                        href="{{ path('app_meeting') }}"
+                    >{{ 'general.navbar.link.meeting'|trans }}</a>
                 </li>
                 <li class="nav-item">
                     <a 

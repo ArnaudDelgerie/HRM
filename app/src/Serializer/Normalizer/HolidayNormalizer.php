@@ -19,7 +19,7 @@ class HolidayNormalizer implements NormalizerInterface
         /** @var Holiday $object */
         $data = [
             'id' => $object->getDate()->getTimestamp(),
-            'calendarId' => $object->getName(),
+            'calendarId' => 'holiday',
             'title' => str_replace('_', ' ', $object->getName()),
             'start' => $object->getDate()->format(DateTime::ATOM),
             'end' => $object->getDate()->format(DateTime::ATOM),

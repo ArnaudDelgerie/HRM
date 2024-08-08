@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\DayLeaveRequestRepository;
+use App\Repository\MeetingRepository;
 use DateTime;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -47,6 +48,27 @@ class HomeController extends AbstractController
             'success' => true,
             'dayLeaveRequests' => $dayLeaveRequests,
             'holidays' => $holidays,
+        ]);
+    }
+
+    #[Route('/calendar/meeting/events', name: 'app_calendar_meeting_events')]
+    public function getMeetingEvents(Request $request, MeetingRepository $meetingRepository, NormalizerInterface $normalizer): Response
+    {
+        $stringDate = $request->get('date', (new DateTime())-> format(DateTime::ATOM));
+        $date = new DateTime($stringDate);
+
+        $start = clone $date;
+        $start->modify('Monday this week');
+
+        $end = clone $date;
+        $end->modify('Sunday this week');
+
+        $meetings = $meetingRepository->getMeetingEvents($this->getUser(), $start, $end);
+        $meetings = $normalizer->normalize($meetings, 'json'); 
+
+        return $this->json([
+            'success' => true,
+            'meetings' => $meetings,
         ]);
     }
 }

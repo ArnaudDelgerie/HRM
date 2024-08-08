@@ -14,10 +14,6 @@ enum UserRoleEnum: string implements TranslatableInterface
     
     case UserManager = 'ROLE_USER_MANAGER';
     
-    case CustomerManager = 'ROLE_CUSTOMER_MANAGER';
-    
-    case ProjectManager = 'ROLE_PROJECT_MANAGER';
-    
     case MeetingManager = 'ROLE_MEETING_MANAGER';
     
     case LeaveManager = 'ROLE_LEAVE_MANAGER';

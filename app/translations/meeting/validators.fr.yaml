@@ -1,0 +1,5 @@
+meeting.name.assert.not_blank: Le nom est requis
+meeting.name.assert.length: Le nom ne doit pas excéder {{ limit }} caractères
+meeting.description.assert.not_blank: La description est requise
+meeting.start_at.assert.not_blank: La date de début est requise
+meeting.end_at.assert.not_blank: Le date de fin est requise

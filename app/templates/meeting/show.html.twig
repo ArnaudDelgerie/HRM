@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'meeting.show.browser.title'|trans }}{% endblock %}
+
+{% block body %}
+<div class="container-sm mt-5">
+    <div class="d-flex justify-content-between">
+        <h1 class="fs-3 text">{{ 'meeting.show.page.title'|trans }}</h1>
+    </div>
+    <div class="card">
+        <div class="card-header fs-5 text-bold">
+            {{ meeting.name }}
+            <span class="fs-6 fst-italic ms-2">({{ meeting.visibility|trans }})</span>
+            {% if meeting.cancelled %}
+            <span class="fs-6 fst-italic text-danger ms-2">{{ 'meeting.show.cancelled'|trans }}</span>
+            {% endif %}
+        </div>
+        <div class="card-body">
+            <p><span class="fw-bold">{{ 'meeting.show.description'|trans }} :</span> {{ meeting.description }}</p>
+            {% if meeting.location is not null %}
+            <p><span class="fw-bold">{{ 'meeting.show.location'|trans }} :</span> {{ meeting.location }}</p>
+            {% endif %}
+            <p><span class="fw-bold">{{ 'meeting.show.start_at'|trans }} :</span> {{ meeting.startAt|format_datetime('long', 'short', locale=app.request.locale) }}</p>
+            <p><span class="fw-bold">{{ 'meeting.show.end_at'|trans }} :</span> {{ meeting.endAt|format_datetime('long', 'short', locale=app.request.locale) }}</p>
+            <p>
+                <span class="fw-bold">{{ 'meeting.show.participants'|trans }} : </span> 
+                {% for participant in meeting.meetingParticipants %}
+                {{ participant.user.username }}{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+        </div>
+        <div class="card-footer d-flex justify-content-end">
+            {% if is_granted('OWNER', meeting) %}
+            <a class="btn btn-secondary btn-sm ms-2" href="{{ path('app_meeting_update', {'meeting': meeting.id}) }}">
+                <i class="fa-solid fa-pen-to-square"></i>
+                <span class="d-none d-sm-inline ms-1">{{ 'meeting.show.actions.update'|trans }}</span>
+            </a>
+            <form method="post" action="{{ path('app_meeting_cancel', {'meeting': meeting.id}) }}"
+                data-turbo-confirm="{{ 'meeting.show.actions.cancel.confirm'|trans }}">
+                <button class="btn btn-danger btn-sm ms-2">
+                    <i class="fa-solid fa-ban"></i>
+                    <span class="d-none d-sm-inline ms-01">
+                        {{ 'meeting.show.actions.cancel'|trans }}
+                    </span>
+                </button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

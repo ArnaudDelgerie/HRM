@@ -34,6 +34,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
     #[ORM\OneToMany(targetEntity: LeaveRequest::class, mappedBy: 'user', orphanRemoval: true)]
     private Collection $leaveRequests;
 
+    #[ORM\OneToMany(targetEntity: MeetingParticipant::class, mappedBy: 'user', orphanRemoval: true)]
+    private Collection $meetingParticipations;
+
     #[Assert\Email(message: 'user.email.assert.email')]
     #[Assert\NotBlank(message: 'user.email.assert.not_blank')]
     #[Assert\Length(max: 180, maxMessage: 'user.email.assert.length')]
@@ -77,6 +80,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
     public function __construct()
     {
         $this->leaveRequests = new ArrayCollection();
+        $this->meetingParticipations = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -109,6 +113,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
         if ($this->leaveRequests->removeElement($leaveRequest)) {
             if ($leaveRequest->getUser() === $this) {
                 $leaveRequest->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getMeetingParticipations(): Collection
+    {
+        return $this->meetingParticipations;
+    }
+
+    public function addMeetingParticipation(MeetingParticipant $meetingParticipation): static
+    {
+        if (!$this->meetingParticipations->contains($meetingParticipation)) {
+            $this->meetingParticipations->add($meetingParticipation);
+            $meetingParticipation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMeetingParticipation(MeetingParticipant $meetingParticipation): static
+    {
+        if ($this->meetingParticipations->removeElement($meetingParticipation)) {
+            if ($meetingParticipation->getUser() === $this) {
+                $meetingParticipation->setUser(null);
             }
         }
 

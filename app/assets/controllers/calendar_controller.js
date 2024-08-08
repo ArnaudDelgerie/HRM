@@ -4,7 +4,7 @@ import { getSassVariable } from '../app';
 
 /* stimulusFetch: 'lazy' */
 export default class extends Controller {
-    static values = {'alldayEventsUrl': String};
+    static values = { 'alldayEventsUrl': String, 'meetingEventsUrl': String };
     static targets = ['dateInput', 'viewInput', 'stringDate', 'calendar', 'navCta'];
 
     initialize() {
@@ -28,6 +28,7 @@ export default class extends Controller {
         this.calendar.setDate(this.currentDate);
         this.updateStringDate();
         this.getAlldayEvents();
+        this.getMeetingEvents();
     }
 
     updateCurrentDateFromDateInput() {
@@ -35,6 +36,7 @@ export default class extends Controller {
         this.calendar.setDate(this.currentDate);
         this.updateStringDate();
         this.getAlldayEvents();
+        this.getMeetingEvents();
     }
 
     updateStringDate() {
@@ -103,9 +105,12 @@ export default class extends Controller {
             },
             theme: {
                 common: {
-                    backgroundColor: getSassVariable('light'), 
+                    backgroundColor: getSassVariable('light'),
                 }
             }
+        });
+        this.calendar.on('clickEvent', ({ event }) => {
+            window.open(event.id, '_blank');
         });
     }
 
@@ -120,7 +125,7 @@ export default class extends Controller {
             .then(response => response.json())
             .then(data => {
                 data.dayLeaveRequests.forEach((dlr) => {
-                    dlr.backgroundColor = getSassVariable('info') 
+                    dlr.backgroundColor = getSassVariable('info')
                     if (!this.calendar.getEvent(dlr.id, dlr.calendarId)) {
                         this.calendar.createEvents([dlr])
                     } else {
@@ -128,11 +133,33 @@ export default class extends Controller {
                     }
                 })
                 data.holidays.forEach((holiday) => {
-                    holiday.backgroundColor = getSassVariable('danger') 
+                    holiday.backgroundColor = getSassVariable('danger')
                     if (!this.calendar.getEvent(holiday.id, holiday.calendarId)) {
                         this.calendar.createEvents([holiday])
                     } else {
                         this.calendar.updateEvent(holiday.id, holiday.calendarId, holiday);
+                    }
+                })
+            })
+            .catch(error => console.error(error));
+    }
+
+    getMeetingEvents() {
+        fetch(`${this['meetingEventsUrlValue']}?date=${encodeURIComponent(this.currentDate.toISOString())}`, {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+            credentials: 'include',
+        })
+            .then(response => response.json())
+            .then(data => {
+                data.meetings.forEach((meeting) => {
+                    meeting.backgroundColor = getSassVariable('secondary')
+                    if (!this.calendar.getEvent(meeting.id, meeting.calendarId)) {
+                        this.calendar.createEvents([meeting])
+                    } else {
+                        this.calendar.updateEvent(meeting.id, meeting.calendarId, meeting);
                     }
                 })
             })
