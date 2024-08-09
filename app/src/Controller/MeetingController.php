@@ -12,6 +12,7 @@ use App\Security\Voter\MeetingVoter;
 use App\Trait\PaginatorTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -99,6 +100,17 @@ class MeetingController extends AbstractController
             'form' => $form,
             'meeting' => $meeting,
         ]);
+    }
+
+    #[IsGranted(MeetingVoter::SUMMARY, subject: 'meeting')]
+    #[Route('/{meeting}/summary', name: 'app_meeting_summary', condition: 'request.isXmlHttpRequest()')]
+    public function summary(Meeting $meeting, Request $request, EntityManagerInterface $em): JsonResponse
+    {
+        $summary = $request->get('summary');
+        $meeting->setSummary($summary);
+        $em->flush();
+
+        return $this->json(['success' => true]);
     }
 
     #[IsGranted('OWNER', subject: 'meeting')]

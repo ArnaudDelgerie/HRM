@@ -29,12 +29,13 @@
                 {% endfor %}
             </p>
         </div>
+        {% if is_granted('OWNER', meeting) %}
         <div class="card-footer d-flex justify-content-end">
-            {% if is_granted('OWNER', meeting) %}
             <a class="btn btn-secondary btn-sm ms-2" href="{{ path('app_meeting_update', {'meeting': meeting.id}) }}">
                 <i class="fa-solid fa-pen-to-square"></i>
                 <span class="d-none d-sm-inline ms-1">{{ 'meeting.show.actions.update'|trans }}</span>
             </a>
+            {% if not meeting.isCancelled %}
             <form method="post" action="{{ path('app_meeting_cancel', {'meeting': meeting.id}) }}"
                 data-turbo-confirm="{{ 'meeting.show.actions.cancel.confirm'|trans }}">
                 <button class="btn btn-danger btn-sm ms-2">
@@ -46,6 +47,49 @@
             </form>
             {% endif %}
         </div>
+        {% endif %}
     </div>
+    {% if not meeting.isCancelled %}
+    <div class="my-3">
+        <div class="d-flex justify-content-between">
+            <h2 class="fs-3 text">{{ 'meeting.show.summary.title'|trans }}</h2>
+        </div>
+        <div data-controller="editor" data-editor-save-url-value="{{ path('app_meeting_summary', {'meeting': meeting.id}) }}" class="bg-secondary rounded d-none">
+            <div data-editor-target="editor" style="min-height: 100px; color: black !important;">
+                {% if meeting.summary %}
+                {{ meeting.summary|raw }}
+                {% endif %}
+            </div>
+            <div class="d-flex justify-content-end p-1">
+                {% if is_granted('SUMMARY', meeting) %}
+                <button
+                    data-editor-target="save"
+                    class="btn btn-light btn-sm ms-2 d-none"
+                    data-action="click->editor#save"
+                >
+                    <i class="fa-regular fa-floppy-disk"></i>
+                    <span class="d-none d-sm-inline ms-1">{{ 'meeting.show.actions.summary_save'|trans }}</span>
+                </button>
+                <button
+                    data-editor-target="edit"
+                    class="btn btn-light btn-sm ms-2"
+                    data-action="click->editor#edit"
+                >
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    <span class="d-none d-sm-inline ms-1">{{ 'meeting.show.actions.summary_edit'|trans }}</span>
+                </button>
+                {% endif %}
+                <button 
+                    data-editor-target="download"
+                    class="btn btn-info btn-sm ms-2"
+                    data-action="click->editor#download"
+                >
+                    <i class="fa-regular fa-circle-down"></i>
+                    <span class="d-none d-sm-inline ms-1">{{ 'meeting.show.actions.summary_download'|trans }}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}

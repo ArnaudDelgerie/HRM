@@ -52,6 +52,9 @@ class Meeting implements OwnedInterface
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?DateTimeInterface $endAt = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $summary = null;
+
     #[ORM\Column]
     private bool $cancelled = false;
 
@@ -205,6 +208,18 @@ class Meeting implements OwnedInterface
     public function setEndAt(DateTimeInterface $endAt): static
     {
         $this->endAt = $endAt;
+
+        return $this;
+    }
+
+    public function getSummary(): ?string
+    {
+        return $this->summary;
+    }
+
+    public function setSummary(?string $summary): static
+    {
+        $this->summary = $summary;
 
         return $this;
     }

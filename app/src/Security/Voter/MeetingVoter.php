@@ -12,8 +12,10 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 class MeetingVoter extends Voter
 {
     public const VIEW = 'VIEW';
+    public const SUMMARY = 'SUMMARY';
     public const ACTIONS = [
-        self::VIEW
+        self::VIEW,
+        self::SUMMARY,
     ];
 
     protected function supports(string $attribute, mixed $subject): bool
@@ -31,6 +33,7 @@ class MeetingVoter extends Voter
 
         return match ($attribute) {
             self::VIEW => $this->canView($subject, $user),
+            self::SUMMARY => $this->canSummary($subject, $user),
             default => throw new LogicException()
         };
 
@@ -43,6 +46,15 @@ class MeetingVoter extends Voter
             return true;
         }
 
+        if ($meeting->getCreatedBy()->getId() === $user->getId()) {
+            return true;
+        }
+        
+        return $meeting->isMeetingParticipant($user); 
+    }
+
+    private function canSummary(Meeting $meeting, User $user): bool
+    {
         if ($meeting->getCreatedBy()->getId() === $user->getId()) {
             return true;
         }

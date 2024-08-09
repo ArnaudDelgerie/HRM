@@ -32,6 +32,7 @@ meeting.index.empty: Aucune réunion
 
 meeting.show.browser.title: Détail de la réunion
 meeting.show.page.title: Détail de la réunion
+meeting.show.summary.title: Compte rendu  
 meeting.show.cancelled: Annulée
 meeting.show.description: Description
 meeting.show.location: Lieu
@@ -41,6 +42,9 @@ meeting.show.participants: Participants
 meeting.show.actions.update: Modifier
 meeting.show.actions.cancel: Annuler
 meeting.show.actions.cancel.confirm: Êtes-vous sûr de vouloir annuler cette réunion ?
+meeting.show.actions.summary_edit: Éditer
+meeting.show.actions.summary_save: Sauvegarder
+meeting.show.actions.summary_download: Télécharger
 
 meeting.update.browser.title: Mise à jour de la réunion
 meeting.update.page.title: Mise à jour de la réunion

@@ -4,6 +4,7 @@ import './styles/app.scss';
 import 'bootstrap';
 import bsCustomFileInput from 'bs-custom-file-input';
 import '@toast-ui/calendar/dist/toastui-calendar.min.css';
+import "quill/dist/quill.snow.css";
 
 bsCustomFileInput.init();
 document.addEventListener('turbo:load', function() {
