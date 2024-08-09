@@ -7,5 +7,19 @@
     <h1 class="fs-3 text">{{ 'user.show.page.title'|trans }}</h1>
     {{ include('user/partial/_show_card.html.twig', {'user': user}) }} 
     {{ include('user/partial/_show_nav.html.twig', {'user': user}) }} 
+    <div class="mt-1">
+        <div class="d-flex justify-content-between my-2">
+            <h2 class="fs-4">{{ 'user.show.meeting.title'|trans }}</h2>
+            {% if is_granted('ROLE_MEETING_MANAGER') and user.id == app.user.id %}
+            <a class="btn btn-primary btn-sm mb-2" href="{{ path('app_meeting_create') }}">
+                <i class="fa-solid fa-calendar-plus"></i>
+                <span class="d-none d-sm-inline ms-1">
+                    {{ 'user.show.meeting.actions.create'|trans }}
+                </span>
+            </a>
+            {% endif %}
+        </div>
+        {{ include('meeting/partial/meeting_list.html.twig', {'meetings': meetings}) }} 
+    </div>
 </div>
 {% endblock %}

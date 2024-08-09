@@ -20,15 +20,16 @@ meeting.create.message.success: Réunion créée
 
 meeting.index.browser.title: Liste des réunions
 meeting.index.page.title: Liste des réunions
-meeting.index.table.name: Nom
-meeting.index.table.visibility: Visibilité
-meeting.index.table.start_at: Début
-meeting.index.table.end_at: Fin
-meeting.index.table.cancelled: Annulée
-meeting.index.table.actions: Actions
-meeting.index.table.actions.show: Voir
 meeting.index.table.actions.create: Ajouter
-meeting.index.empty: Aucune réunion
+
+meeting.list.table.name: Nom
+meeting.list.table.visibility: Visibilité
+meeting.list.table.start_at: Début
+meeting.list.table.end_at: Fin
+meeting.list.table.cancelled: Annulée
+meeting.list.table.actions: Actions
+meeting.list.table.actions.show: Voir
+meeting.list.empty: Aucune réunion
 
 meeting.show.browser.title: Détail de la réunion
 meeting.show.page.title: Détail de la réunion

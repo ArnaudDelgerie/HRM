@@ -23,6 +23,8 @@ user.show.link.meeting: Réunions
 user.show.leave.title: Demandes de congés
 user.show.leave.actions.create: Nouvelle demande
 user.show.leave.empty: Aucune demande effectuée
+user.show.meeting.title: Liste des réunions
+user.show.meeting.actions.create: Ajouter
 
 user.index.browser.title: Liste des employés
 user.index.page.title: Liste des employés
@@ -66,8 +68,6 @@ user.form.roles.help: |
   Pour utiliser les autres fonctionnalités, il est nécessaire d'avoir des autorisations spécifiques :</p>
   <ul><li><span class="fw-bold">Intégrales :</span> toutes les autorisations.</li>
   <li><span class="fw-bold">Gestion d'employés :</span> ajouter, inviter, modifier et désactiver des employés</li>
-  <li><span class="fw-bold">Gestion des clients :</span> ajouter, modifier et désactiver des clients</li>
-  <li><span class="fw-bold">Gestions des projets :</span> créer, modifier et cloturer des projets</li>
   <li><span class="fw-bold">Gestions des réunions :</span> créer, modifier, cloturer des réunions</li>
   <li><span class="fw-bold">Gestions des congés :</span> accepter ou refuser les demandes de congés</li></ul>
 user.form.invite.label: Envoyer l'invitation immédiatement

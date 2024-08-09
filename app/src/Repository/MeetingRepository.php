@@ -40,6 +40,29 @@ class MeetingRepository extends ServiceEntityRepository
             ->getQuery();
     }
 
+    public function getUserMeetings(User $user, bool $isOwner): Query
+    {
+        $qb = $this->createQueryBuilder('m')
+            ->leftJoin('m.meetingParticipants', 'p')
+            ->where(
+                new Orx([
+                    'p.user = :user',
+                    'm.createdBy = :user',
+                ])
+            )
+            ->setParameter('user', $user->getId());
+
+        if (!$isOwner) {
+            $qb
+                ->andWhere('m.visibility = :public')
+                ->setParameter('public', MeetingVisibilityEnum::Public->value);
+        }
+
+        $qb->orderBy('m.startAt', 'DESC');
+        
+        return $qb->getQuery();
+    }
+
     public function getMeetingEvents(User $user, DateTime $start, DateTime $end): array
     {
         return $this->createQueryBuilder('m')

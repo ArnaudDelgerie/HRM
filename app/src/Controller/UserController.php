@@ -9,6 +9,7 @@ use App\Form\UpdateUserType;
 use App\Form\UserPasswordType;
 use App\Message\UserInvitationMessage;
 use App\Repository\LeaveRequestRepository;
+use App\Repository\MeetingRepository;
 use App\Repository\UserRepository;
 use App\Trait\PaginatorTrait;
 use Doctrine\ORM\EntityManagerInterface;
@@ -64,10 +65,21 @@ class UserController extends AbstractController
     }
 
     #[Route('/{user}/meeting', name: 'app_user_show_meeting', requirements: ['user' => Requirement::POSITIVE_INT])]
-    public function showMeeting(User $user): Response
+    public function showMeeting(User $user, Request $request, MeetingRepository $meetingRepository): Response
     {
+        $page = (int) $request->get('page', 1);
+        $limit = $this->getParameter('paginator_limit');
+
+        /** @var User $loggedUser */
+        $loggedUser = $this->getUser();
+        $meetingQuery = $meetingRepository->getUserMeetings($user, $loggedUser->getId() === $user->getId());
+        $meetingPaginator = $this->paginate($meetingQuery, $page, $limit);
+        $paginationData = $this->getPaginationData($meetingPaginator, $request, $page, $limit);
+
         return $this->render('user/show_meeting.html.twig', [
             'user' => $user,
+            'paginationData' => $paginationData,
+            'meetings' => $meetingPaginator->getIterator(),
         ]);
     }
 

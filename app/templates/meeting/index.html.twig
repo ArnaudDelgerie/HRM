@@ -15,50 +15,6 @@
         </a>
         {% endif %}
     </div>
-    <div>
-        <div class="table-responsive">
-            {% if meetings|length > 0 %}
-            <table class="table table-hover border-secondary">
-                <thead>
-                    <tr>
-                        <th scope="col">{{ 'meeting.index.table.name'|trans }}</th>
-                        <th class="d-none d-lg-table-cell" scope="col">{{ 'meeting.index.table.visibility'|trans }}</th>
-                        <th scope="col">{{ 'meeting.index.table.start_at'|trans }}</th>
-                        <th class="d-none d-md-table-cell" scope="col">{{ 'meeting.index.table.end_at'|trans }}</th>
-                        <th scope="col">{{ 'meeting.index.table.actions'|trans }}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for meeting in meetings %}
-                    <tr>
-                        <td>
-                            {{ meeting.name }}
-                            {% if meeting.cancelled %}
-                            <span class="fs-6 fst-italic text-danger ms-2">{{ 'meeting.index.table.cancelled'|trans }}</span>
-                            {% endif %}
-                        </td>
-                        <td class="d-none d-lg-table-cell">{{ meeting.visibility|trans }}</td>
-                        <td>{{ meeting.startAt|format_datetime('long', 'short', locale=app.request.locale) }}</td>
-                        <td class="d-none d-md-table-cell">{{ meeting.endAt|format_datetime('long', 'short', locale=app.request.locale) }}</td>
-                        <td>
-                            <div class="d-flex justify-content-start">
-                                <a href="{{ path('app_meeting_show', {'meeting': meeting.id}) }}" class="btn btn-secondary btn-sm ms-2">
-                                    <i class="fa-regular fa-eye"></i>
-                                    <span class="d-none d-sm-inline ms-1">
-                                        {{ 'meeting.index.table.actions.show'|trans }}
-                                    </span>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            {% else %}
-            <p class="mt-2 text-center">{{ 'meeting.index.empty'|trans }}</p>
-            {% endif %}
-        </div>
-        {{ include('general/pagination.html.twig', {'paginationData': paginationData}) }}
-    </div>
+    {{ include('meeting/partial/meeting_list.html.twig', {'meetings': meetings}) }} 
 </div>
 {% endblock %}
