@@ -50,36 +50,44 @@ class UserController extends AbstractController
     #[Route('/{user}/leave', name: 'app_user_show_leave', requirements: ['user' => Requirement::POSITIVE_INT])]
     public function showLeave(User $user, Request $request, LeaveRequestRepository $leaveRequestRepository): Response
     {
-        $page = (int) $request->get('page', 1);
-        $limit = $this->getParameter('paginator_limit');
+        /** @var User $loggedUser */
+        $loggedUser = $this->getUser();
+        if ($loggedUser->getId() === $user->getId()) {
+            $page = (int) $request->get('page', 1);
+            $limit = $this->getParameter('paginator_limit');
 
-        $leaveRequestsQuery = $leaveRequestRepository->getLeaveRequestsByUser($user);
-        $leaveRequestsPaginator = $this->paginate($leaveRequestsQuery, $page, $limit);
-        $paginationData = $this->getPaginationData($leaveRequestsPaginator, $request, $page, $limit);
+            $leaveRequestsQuery = $leaveRequestRepository->getLeaveRequestsByUser($user);
+            $leaveRequestsPaginator = $this->paginate($leaveRequestsQuery, $page, $limit);
+            $paginationData = $this->getPaginationData($leaveRequestsPaginator, $request, $page, $limit);
+            $leaveRequests = $leaveRequestsPaginator->getIterator();
+        }
 
         return $this->render('user/show_leave.html.twig', [
             'user' => $user,
-            'paginationData' => $paginationData,
-            'leaveRequests' => $leaveRequestsPaginator->getIterator(),
+            'paginationData' => $paginationData ?? [],
+            'leaveRequests' => $leaveRequests ?? [],
         ]);
     }
 
     #[Route('/{user}/meeting', name: 'app_user_show_meeting', requirements: ['user' => Requirement::POSITIVE_INT])]
     public function showMeeting(User $user, Request $request, MeetingRepository $meetingRepository): Response
     {
-        $page = (int) $request->get('page', 1);
-        $limit = $this->getParameter('paginator_limit');
-
         /** @var User $loggedUser */
         $loggedUser = $this->getUser();
-        $meetingQuery = $meetingRepository->getUserMeetings($user, $loggedUser->getId() === $user->getId());
-        $meetingPaginator = $this->paginate($meetingQuery, $page, $limit);
-        $paginationData = $this->getPaginationData($meetingPaginator, $request, $page, $limit);
+        if ($loggedUser->getId() === $user->getId()) {
+            $page = (int) $request->get('page', 1);
+            $limit = $this->getParameter('paginator_limit');
+
+            $meetingsQuery = $meetingRepository->getUserMeetings($user);
+            $meetingsPaginator = $this->paginate($meetingsQuery, $page, $limit);
+            $paginationData = $this->getPaginationData($meetingsPaginator, $request, $page, $limit);
+            $meetings = $meetingsPaginator->getIterator();
+        }
 
         return $this->render('user/show_meeting.html.twig', [
             'user' => $user,
-            'paginationData' => $paginationData,
-            'meetings' => $meetingPaginator->getIterator(),
+            'paginationData' => $paginationData ?? [],
+            'meetings' => $meetings ?? [],
         ]);
     }
 

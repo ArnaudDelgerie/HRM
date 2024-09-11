@@ -6,6 +6,8 @@
 <div class="container-sm my-5">
     <h1 class="fs-3">{{ 'user.show.page.title'|trans }}</h1>
     {{ include('user/partial/_show_card.html.twig', {'user': user}) }} 
+
+    {% if app.user.id == user.id %}
     {{ include('user/partial/_show_nav.html.twig', {'user': user}) }} 
     <div class="mt-1">
         <div class="d-flex justify-content-between my-2">
@@ -30,5 +32,6 @@
             {% endif %}
         </div>
     </div>
+    {% endif %}
 </div>
 {% endblock %}

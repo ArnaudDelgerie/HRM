@@ -22,7 +22,7 @@ class DayLeaveRequestNormalizer implements NormalizerInterface
         $data = [
             'id' => 'day_leave_request_' . $object->getId(),
             'calendarId' => 'day_leave_request',
-            'title' => $leaveRequest->getType()->trans($this->translator) . ' - '. $user->getUsername() . ' - ' . $object->getPeriod()->trans($this->translator),
+            'title' => $this->translator->trans('leave_request.public.label') . ' - '. $user->getUsername() . ' - ' . $object->getPeriod()->trans($this->translator),
             'start' => $object->getDayDate()->format(DateTime::ATOM),
             'end' => $object->getDayDate()->format(DateTime::ATOM),
             'isReadOnly' => true,

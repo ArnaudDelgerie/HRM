@@ -110,6 +110,7 @@ export default class extends Controller {
             }
         });
         this.calendar.on('clickEvent', ({ event }) => {
+            if (event.category === 'allday') return;
             window.open(event.id, '_blank');
         });
     }
@@ -125,7 +126,7 @@ export default class extends Controller {
             .then(response => response.json())
             .then(data => {
                 data.dayLeaveRequests.forEach((dlr) => {
-                    dlr.backgroundColor = getSassVariable('info')
+                    dlr.backgroundColor = getSassVariable('primary')
                     if (!this.calendar.getEvent(dlr.id, dlr.calendarId)) {
                         this.calendar.createEvents([dlr])
                     } else {

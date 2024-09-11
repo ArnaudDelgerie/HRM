@@ -26,6 +26,7 @@
                         href="{{ path('app_meeting') }}"
                     >{{ 'general.navbar.link.meeting'|trans }}</a>
                 </li>
+                {% if is_granted('ROLE_LEAVE_MANAGER') %}
                 <li class="nav-item">
                     <a 
                         {% if isLeaveTab %} aria-current="page"{% endif %} 
@@ -33,6 +34,7 @@
                         href="{{ path('app_leave_request') }}"
                     >{{ 'general.navbar.link.leave'|trans }}</a>
                 </li>
+                {% endif %}
             </ul>
             <div class="mx-lg-2">
                 <a class="text fs-5" href="{{ path('app_user_show_leave', {'user': app.user.id}) }}">{{ app.user.username }}</a>

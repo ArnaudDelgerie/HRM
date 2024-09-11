@@ -40,7 +40,7 @@ class MeetingRepository extends ServiceEntityRepository
             ->getQuery();
     }
 
-    public function getUserMeetings(User $user, bool $isOwner): Query
+    public function getUserMeetings(User $user): Query
     {
         $qb = $this->createQueryBuilder('m')
             ->leftJoin('m.meetingParticipants', 'p')
@@ -51,12 +51,6 @@ class MeetingRepository extends ServiceEntityRepository
                 ])
             )
             ->setParameter('user', $user->getId());
-
-        if (!$isOwner) {
-            $qb
-                ->andWhere('m.visibility = :public')
-                ->setParameter('public', MeetingVisibilityEnum::Public->value);
-        }
 
         $qb->orderBy('m.startAt', 'DESC');
         

@@ -7,6 +7,7 @@ use App\Entity\LeaveRequest;
 use App\Entity\User;
 use App\Enum\DayLeaveRequestPeriodEnum;
 use App\Enum\LeaveRequestStateEnum;
+use App\Enum\UserRoleEnum;
 use App\Form\LeaveRequestType;
 use App\Form\ManageLeaveRequestType;
 use App\Message\LeaveRequestAcceptedMessage;
@@ -33,6 +34,7 @@ class LeaveRequestController extends AbstractController
 
     public function __construct(private readonly MessageBusInterface $messageBus) {}
 
+    #[IsGranted(UserRoleEnum::LeaveManager->value)]
     #[Route('', name: 'app_leave_request')]
     public function index(Request $request, LeaveRequestRepository $leaveRequestRepository): Response
     {

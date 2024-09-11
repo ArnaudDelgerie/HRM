@@ -2,6 +2,7 @@ leave_request.state.pending: <span class="text-info">En attente</span>
 leave_request.state.accepted: <span class="text-success">Acceptée</span>
 leave_request.state.rejected: <span class="text-danger">Rejetée</span>
 
+leave_request.public.label: Absent(e)
 leave_request.type.paid: Congé payé
 leave_request.type.unpaid: Congé sans solde
 leave_request.type.maternity: Congé maternité/paternité
