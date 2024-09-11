@@ -30,11 +30,18 @@ class HomeController extends AbstractController
         $stringDate = $request->get('date', (new DateTime())-> format(DateTime::ATOM));
         $date = new DateTime($stringDate);
 
-        $start = clone $date;
-        $start->modify('Monday this week');
-
-        $end = clone $date;
-        $end->modify('Sunday this week');
+        $view = $request->get('view', 'week');
+        if ($view === 'month') {
+            $start = new DateTime($date->format('Y-m-01'));
+            $start->modify('monday this week');
+            $end = new DateTime($date->format('Y-m-t'));
+            $end->modify('sunday this week');
+        } else {
+            $start = clone $date;
+            $start->modify('Monday this week');
+            $end = clone $date;
+            $end->modify('Sunday this week');
+        }
 
         $calculator = new HolidayCalculator();
         $holidays = $calculator->calculate(France::class, (int)$date->format('Y'));
@@ -57,11 +64,18 @@ class HomeController extends AbstractController
         $stringDate = $request->get('date', (new DateTime())-> format(DateTime::ATOM));
         $date = new DateTime($stringDate);
 
-        $start = clone $date;
-        $start->modify('Monday this week');
-
-        $end = clone $date;
-        $end->modify('Sunday this week');
+        $view = $request->get('view', 'week');
+        if ($view === 'month') {
+            $start = new DateTime($date->format('Y-m-01'));
+            $start->modify('monday this week');
+            $end = new DateTime($date->format('Y-m-t'));
+            $end->modify('sunday this week');
+        } else {
+            $start = clone $date;
+            $start->modify('Monday this week');
+            $end = clone $date;
+            $end->modify('Sunday this week');
+        }
 
         $meetings = $meetingRepository->getMeetingEvents($this->getUser(), $start, $end);
         $meetings = $normalizer->normalize($meetings, 'json'); 

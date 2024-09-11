@@ -15,7 +15,7 @@ export default class extends Controller {
 
     connect() {
         this.initCalendar();
-        // this.updateView();
+        this.updateView();
         if (this.dateInputTarget.value) {
             this.updateCurrentDateFromDateInput();
         } else {
@@ -116,7 +116,7 @@ export default class extends Controller {
     }
 
     getAlldayEvents() {
-        fetch(`${this['alldayEventsUrlValue']}?date=${encodeURIComponent(this.currentDate.toISOString())}`, {
+        fetch(`${this['alldayEventsUrlValue']}?date=${encodeURIComponent(this.currentDate.toISOString())}&view=${this.view}`, {
             method: 'GET',
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
@@ -146,7 +146,7 @@ export default class extends Controller {
     }
 
     getMeetingEvents() {
-        fetch(`${this['meetingEventsUrlValue']}?date=${encodeURIComponent(this.currentDate.toISOString())}`, {
+        fetch(`${this['meetingEventsUrlValue']}?date=${encodeURIComponent(this.currentDate.toISOString())}&view=${this.view}`, {
             method: 'GET',
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
