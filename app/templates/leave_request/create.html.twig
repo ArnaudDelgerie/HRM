@@ -18,7 +18,7 @@
         >
             <template data-form-child-target="template">
                 <div class="input-group mb-3" data-form-child-container>
-                    {{ form_widget(form.dayLeaveRequests.vars.prototype.dayDate, {'attr': {'class': 'form-control'}})}}
+                    {{ form_widget(form.dayLeaveRequests.vars.prototype.dayDate, {'attr': {'class': 'form-control', 'data-form-child-target': 'clonedInput'}})}}
                     <span class="mx-1"></span>
                     {{ form_widget(form.dayLeaveRequests.vars.prototype.period, {'attr': {'class': 'form-select'}}) }}
                     <button 
@@ -36,7 +36,7 @@
                 {{ form_label(form.dayLeaveRequests, null, {'label_attr': {'class': 'form-label'}}) }}
                 {% for dayLeaveRequest in form.dayLeaveRequests %}
                 <div class="input-group mb-3" data-form-child-container>
-                    {{ form_widget(dayLeaveRequest.dayDate, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_widget(dayLeaveRequest.dayDate, {'attr': {'class': 'form-control', 'data-form-child-target': 'clonedInput'}}) }}
                     <span class="mx-1"></span>
                     {{ form_widget(dayLeaveRequest.period, {'attr': {'class': 'form-select'}}) }}
                     <button 
@@ -55,7 +55,7 @@
             </div>
 
             <div class="d-flex justify-content-end">
-                <button type="button" data-action="click->form-child#add" class="btn btn-info">
+                <button type="button" data-action="click->form-child#add" data-form-child-compute-param="addDay" class="btn btn-info">
                     <span class="fa fa-plus-circle"></span>
                     {{ 'leave_request.form.day_leave_request_add.label'|trans }}
                 </button>
